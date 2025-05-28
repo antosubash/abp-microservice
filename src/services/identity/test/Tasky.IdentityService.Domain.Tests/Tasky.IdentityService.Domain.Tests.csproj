@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <ProjectReference Include="..\Tasky.IdentityService.EntityFrameworkCore.Tests\Tasky.IdentityService.EntityFrameworkCore.Tests.csproj" />
   </ItemGroup>
 

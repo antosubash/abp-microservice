@@ -10,7 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Tasky.Projects.Application\Tasky.Projects.Application.csproj" />
     <ProjectReference Include="..\Tasky.Projects.Domain.Tests\Tasky.Projects.Domain.Tests.csproj" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
   </ItemGroup>
 
 </Project>

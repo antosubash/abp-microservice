@@ -182,7 +182,7 @@ public class OpenIddictDataSeeder(
                 }
             }
 
-            application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Logout);
+            application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.EndSession);
 
             foreach (var grantType in grantTypes)
             {
@@ -256,7 +256,9 @@ public class OpenIddictDataSeeder(
                     application.Permissions.Add(
                         OpenIddictConstants.Permissions.GrantTypes.DeviceCode
                     );
-                    application.Permissions.Add(OpenIddictConstants.Permissions.Endpoints.Device);
+                    application.Permissions.Add(
+                        OpenIddictConstants.Permissions.Endpoints.DeviceAuthorization
+                    );
                 }
 
                 if (grantType == OpenIddictConstants.GrantTypes.Implicit)
