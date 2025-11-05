@@ -10,8 +10,8 @@ public class OpenIddictDataSeedContributor(OpenIddictDataSeeder OpenIddictDataSe
 {
     private readonly OpenIddictDataSeeder _OpenIddictDataSeeder = OpenIddictDataSeeder;
 
-    public async Task SeedAsync(DataSeedContext context)
+    public Task SeedAsync(DataSeedContext context)
     {
-        await _OpenIddictDataSeeder.SeedAsync();
+        return _OpenIddictDataSeeder.SeedAsync();
     }
 }

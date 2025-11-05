@@ -4,4 +4,5 @@
  * See SampleAppService_Tests for example.
  */
 public abstract class ProjectsApplicationTestBase
-    : ProjectsTestBase<ProjectsApplicationTestModule> { }
+    : ProjectsTestBase<ProjectsApplicationTestModule>
+{ }

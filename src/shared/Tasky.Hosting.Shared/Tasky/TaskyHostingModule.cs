@@ -2,6 +2,8 @@ using Medallion.Threading;
 using Medallion.Threading.Redis;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,51 @@ using Volo.Abp.Swashbuckle;
 
 namespace Tasky;
 
+internal sealed class NoOpDistributedLockProvider : IDistributedLockProvider
+{
+    public IDistributedLock CreateLock(string name)
+    {
+        return new NoOpDistributedLock();
+    }
+
+    private sealed class NoOpDistributedLock : IDistributedLock
+    {
+        public string Name => string.Empty;
+
+        public IDistributedSynchronizationHandle? TryAcquire(TimeSpan timeout = default, CancellationToken cancellationToken = default)
+        {
+            return new NoOpDistributedLockHandle();
+        }
+
+        public IDistributedSynchronizationHandle Acquire(TimeSpan? timeout = null, CancellationToken cancellationToken = default)
+        {
+            return new NoOpDistributedLockHandle();
+        }
+
+        public ValueTask<IDistributedSynchronizationHandle?> TryAcquireAsync(TimeSpan timeout = default, CancellationToken cancellationToken = default)
+        {
+            return ValueTask.FromResult<IDistributedSynchronizationHandle?>(new NoOpDistributedLockHandle());
+        }
+
+        public ValueTask<IDistributedSynchronizationHandle> AcquireAsync(TimeSpan? timeout = null, CancellationToken cancellationToken = default)
+        {
+            return ValueTask.FromResult<IDistributedSynchronizationHandle>(new NoOpDistributedLockHandle());
+        }
+
+        private sealed class NoOpDistributedLockHandle : IDistributedSynchronizationHandle
+        {
+            public CancellationToken HandleLostToken => CancellationToken.None;
+
+            public void Dispose() { }
+
+            public ValueTask DisposeAsync()
+            {
+                return ValueTask.CompletedTask;
+            }
+        }
+    }
+}
+
 [DependsOn(typeof(AbpAspNetCoreMultiTenancyModule))]
 [DependsOn(typeof(AbpAspNetCoreSerilogModule))]
 [DependsOn(typeof(AbpAutofacModule))]
@@ -40,6 +87,20 @@ public class TaskyHostingModule : AbpModule
     {
         var configuration = context.Services.GetConfiguration();
         var hostingEnvironment = context.Services.GetHostingEnvironment();
+
+        var isTestEnvironment = hostingEnvironment.IsEnvironment("Test") || 
+                               configuration["ASPNETCORE_ENVIRONMENT"] == "Test" ||
+                               configuration["Environment"] == "Test";
+
+        // Configure in-memory distributed cache for test environment when Redis is not available
+        if (isTestEnvironment)
+        {
+            var redisConnectionString = configuration.GetConnectionString(TaskyNames.Redis);
+            if (string.IsNullOrWhiteSpace(redisConnectionString))
+            {
+                context.Services.AddDistributedMemoryCache();
+            }
+        }
 
         ConfigureDistributedLocking(context, configuration);
 
@@ -71,17 +132,47 @@ public class TaskyHostingModule : AbpModule
             options.Languages.Add(new LanguageInfo("es", "es", "Español"));
         });
 
-        Configure<AbpRabbitMqOptions>(options =>
+        var rabbitMqConnectionString = configuration.GetConnectionString(TaskyNames.RabbitMq);
+        
+        if (!string.IsNullOrWhiteSpace(rabbitMqConnectionString) && !isTestEnvironment)
         {
-            var cstr = configuration.GetConnectionString(TaskyNames.RabbitMq);
-            options.Connections.Default = new ConnectionFactory() { Uri = new Uri(cstr!) };
-        });
+            Configure<AbpRabbitMqOptions>(options =>
+            {
+                options.Connections.Default = new ConnectionFactory() { Uri = new Uri(rabbitMqConnectionString) };
+            });
 
-        Configure<AbpRabbitMqEventBusOptions>(options =>
+            var clientName = configuration["RabbitMQ:EventBus:ClientName"];
+            var exchangeName = configuration["RabbitMQ:EventBus:ExchangeName"];
+            if (!string.IsNullOrWhiteSpace(clientName) && !string.IsNullOrWhiteSpace(exchangeName))
+            {
+                Configure<AbpRabbitMqEventBusOptions>(options =>
+                {
+                    options.ClientName = clientName;
+                    options.ExchangeName = exchangeName;
+                });
+            }
+        }
+        else if (isTestEnvironment && !string.IsNullOrWhiteSpace(rabbitMqConnectionString))
         {
-            options.ClientName = configuration["RabbitMQ:EventBus:ClientName"]!;
-            options.ExchangeName = configuration["RabbitMQ:EventBus:ExchangeName"]!;
-        });
+            // In test environment with a connection string, configure RabbitMQ with minimal timeouts
+            Configure<AbpRabbitMqOptions>(options =>
+            {
+                if (options.Connections.Default == null)
+                {
+                    var factory = new ConnectionFactory
+                    {
+                        HostName = "127.0.0.1",
+                        Port = 5672,
+                        RequestedConnectionTimeout = TimeSpan.FromMilliseconds(1),
+                        SocketReadTimeout = TimeSpan.FromMilliseconds(1),
+                        SocketWriteTimeout = TimeSpan.FromMilliseconds(1),
+                        NetworkRecoveryInterval = TimeSpan.Zero,
+                        AutomaticRecoveryEnabled = false
+                    };
+                    options.Connections.Default = factory;
+                }
+            });
+        }
     }
 
     private static void ConfigureDistributedLocking(
@@ -89,14 +180,21 @@ public class TaskyHostingModule : AbpModule
         IConfiguration configuration
     )
     {
-        context.Services.AddSingleton<IDistributedLockProvider>(sp =>
+        var redisConnectionString = configuration.GetConnectionString(TaskyNames.Redis);
+        if (!string.IsNullOrWhiteSpace(redisConnectionString) && !redisConnectionString.Contains(":0"))
         {
-            var connection = ConnectionMultiplexer.Connect(
-                configuration.GetConnectionString(TaskyNames.Redis)!
+            context.Services.AddSingleton<IDistributedLockProvider>(sp =>
+            {
+                var connection = ConnectionMultiplexer.Connect(redisConnectionString);
+                return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
+            });
+        }
+        else
+        {
+            context.Services.AddSingleton<IDistributedLockProvider>(
+                sp => new NoOpDistributedLockProvider()
             );
-
-            return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
-        });
+        }
     }
 }
 
@@ -114,10 +212,12 @@ public static class HostingExtensions
             .SetApplicationName(TaskyNames.Tasky);
         if (!hostingEnvironment.IsDevelopment())
         {
-            var redis = ConnectionMultiplexer.Connect(
-                configuration.GetConnectionString(TaskyNames.Redis)!
-            );
-            dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, $"{name}-Keys");
+            var redisConnectionString = configuration.GetConnectionString(TaskyNames.Redis);
+            if (!string.IsNullOrWhiteSpace(redisConnectionString))
+            {
+                var redis = ConnectionMultiplexer.Connect(redisConnectionString);
+                dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, $"{name}-Keys");
+            }
         }
 
         return context;

@@ -7,12 +7,14 @@ using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.Identity.EntityFrameworkCore;
 using Volo.Abp.Modularity;
 using Volo.Abp.OpenIddict.EntityFrameworkCore;
+using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 
 namespace Tasky.IdentityService.EntityFrameworkCore;
 
 [DependsOn(typeof(AbpEntityFrameworkCorePostgreSqlModule))]
 [DependsOn(typeof(AbpIdentityEntityFrameworkCoreModule))]
 [DependsOn(typeof(AbpOpenIddictEntityFrameworkCoreModule))]
+[DependsOn(typeof(AbpPermissionManagementEntityFrameworkCoreModule))]
 [DependsOn(typeof(IdentityServiceDomainModule))]
 [DependsOn(typeof(TaskySharedModule))]
 public class IdentityServiceEntityFrameworkCoreModule : AbpModule

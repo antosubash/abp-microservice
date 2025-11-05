@@ -8,7 +8,7 @@
     <ProjectReference Include="..\..\..\..\shared\Tasky.Shared\Tasky.Shared.csproj" />
     <ProjectReference Include="..\Tasky.SaaS.Domain\Tasky.SaaS.Domain.csproj" />
     <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="9.3.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

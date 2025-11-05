@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Sqlite;
 using Volo.Abp.Modularity;
+using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.Uow;
 
 namespace Tasky.IdentityService.EntityFrameworkCore;
@@ -12,6 +13,7 @@ namespace Tasky.IdentityService.EntityFrameworkCore;
 [DependsOn(typeof(IdentityServiceTestBaseModule))]
 [DependsOn(typeof(IdentityServiceEntityFrameworkCoreModule))]
 [DependsOn(typeof(AbpEntityFrameworkCoreSqliteModule))]
+[DependsOn(typeof(AbpPermissionManagementEntityFrameworkCoreModule))]
 public class IdentityServiceEntityFrameworkCoreTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)

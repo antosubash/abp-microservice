@@ -7,9 +7,9 @@ namespace Tasky.Projects.HttpApi.Client.ConsoleTestApp;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static Task Main(string[] args)
     {
-        await CreateHostBuilder(args).RunConsoleAsync();
+        return CreateHostBuilder(args).RunConsoleAsync();
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args)

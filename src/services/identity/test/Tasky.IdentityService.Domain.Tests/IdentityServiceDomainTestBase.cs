@@ -4,4 +4,5 @@
  * See SampleManager_Tests for example.
  */
 public abstract class IdentityServiceDomainTestBase
-    : IdentityServiceTestBase<IdentityServiceDomainTestModule> { }
+    : IdentityServiceTestBase<IdentityServiceDomainTestModule>
+{ }

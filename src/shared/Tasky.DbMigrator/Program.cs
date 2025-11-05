@@ -8,7 +8,7 @@ namespace Tasky.DbMigrator;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static Task Main(string[] args)
     {
         TaskyLogging.Initialize();
 
@@ -31,6 +31,6 @@ internal class Program
 
         var host = builder.Build();
 
-        await host.RunAsync();
+        return host.RunAsync();
     }
 }

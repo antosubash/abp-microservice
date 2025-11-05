@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Tasky.IntegrationTests.Shared</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Testing" Version="9.5.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.1" />
+    <PackageReference Include="Testcontainers.PostgreSql" Version="4.2.0" />
+    <PackageReference Include="Volo.Abp.Core" Version="9.3.6" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="9.3.6" />
+    <PackageReference Include="Volo.Abp.MultiTenancy" Version="9.3.6" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\apps\Tasky.AppHost\Tasky.AppHost.csproj" />
+    <ProjectReference Include="..\Tasky.Shared\Tasky.Shared.csproj" IsAspireProjectResource="false" />
+  </ItemGroup>
+</Project>
+
