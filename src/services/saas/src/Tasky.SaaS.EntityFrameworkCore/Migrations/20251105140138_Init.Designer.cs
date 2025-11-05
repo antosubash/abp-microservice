@@ -13,8 +13,8 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tasky.SaaS.Migrations
 {
     [DbContext(typeof(SaaSDbContext))]
-    [Migration("20241123003000_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20251105140138_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,7 @@ namespace Tasky.SaaS.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("_Abp_DatabaseProvider", EfCoreDatabaseProvider.PostgreSql)
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
