@@ -9,13 +9,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.2" PrivateAssets="All" />
-    <PackageReference Include="Fody" Version="6.8.2">
+    <PackageReference Include="Fody" Version="6.9.3">
       <PrivateAssets>All</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SourceLink.Gitea" Version="8.*">
       <PrivateAssets>all</PrivateAssets>
@@ -25,15 +21,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.9.60">
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')">
+    <PackageReference Include="Nerdbank.GitVersioning" Condition="!Exists('packages.config')" Version="3.8.118">
       <PrivateAssets>all</PrivateAssets>
       <Version>3.*</Version>
     </PackageReference>
-    <PackageReference Include="NodaTime" Version="$(NodaTimePackageVersion)" />
+    <PackageReference Include="NodaTime" Version="3.2.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Logs\**" />

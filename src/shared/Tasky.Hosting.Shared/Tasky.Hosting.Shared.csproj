@@ -8,14 +8,15 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.5.2" />
     <PackageReference Include="Aspire.RabbitMQ.Client" Version="9.5.2" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
     <PackageReference Include="Aspire.Seq" Version="9.5.2" />
     <PackageReference Include="Aspire.StackExchange.Redis" Version="9.5.2" />
     <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" Version="9.5.2" />
     <PackageReference Include="DistributedLock.Redis" Version="1.0.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="9.0.0.0" />
     <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Volo.Abp.AspNetCore.Mvc.UI.MultiTenancy" Version="9.3.6" />
     <PackageReference Include="Volo.Abp.AspNetCore.Serilog" Version="9.3.6" />
     <PackageReference Include="Volo.Abp.Autofac" Version="9.3.6" />
