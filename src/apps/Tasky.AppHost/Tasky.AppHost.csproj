@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
@@ -25,9 +25,6 @@
     <ProjectReference Include="..\..\services\saas\host\Tasky.SaaS.HttpApi.Host\Tasky.SaaS.HttpApi.Host.csproj" />
     <ProjectReference Include="..\Tasky.WebApp\src\Tasky.WebApp.Blazor\Tasky.WebApp.Blazor.csproj" />
     <ProjectReference Include="..\..\shared\Tasky.DbMigrator\Tasky.DbMigrator.csproj" />
-    <ProjectReference
-      Include="..\..\shared\Tasky.Shared\Tasky.Shared.csproj"
-      IsAspireProjectResource="false"
-    />
+    <ProjectReference Include="..\..\shared\Tasky.Shared\Tasky.Shared.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
     <RootNamespace>Tasky.Projects</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Http.Client" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.Http.Client" Version="9.3.6" />
     <ProjectReference Include="..\Tasky.Projects.Application.Contracts\Tasky.Projects.Application.Contracts.csproj" />
   </ItemGroup>
   <ItemGroup>

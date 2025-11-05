@@ -4,8 +4,8 @@
     <RootNamespace>Tasky.Projects</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="9.0.0" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="9.3.6" />
+    <PackageReference Include="Volo.Abp.Authorization" Version="9.3.6" />
     <ProjectReference Include="..\Tasky.Projects.Domain.Shared\Tasky.Projects.Domain.Shared.csproj" />
   </ItemGroup>
 </Project>

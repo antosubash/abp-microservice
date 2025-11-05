@@ -4,10 +4,10 @@
     <RootNamespace>Tasky.IdentityService</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Account.Application" Version="9.0.0" />
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="9.0.0" />
-    <PackageReference Include="Volo.Abp.Ddd.Application" Version="9.0.0" />
-    <PackageReference Include="Volo.Abp.Identity.Application" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.Account.Application" Version="9.3.6" />
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="9.3.6" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="9.3.6" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="9.3.6" />
     <ProjectReference Include="..\Tasky.IdentityService.Application.Contracts\Tasky.IdentityService.Application.Contracts.csproj" />
     <ProjectReference Include="..\Tasky.IdentityService.Domain\Tasky.IdentityService.Domain.csproj" />
   </ItemGroup>
