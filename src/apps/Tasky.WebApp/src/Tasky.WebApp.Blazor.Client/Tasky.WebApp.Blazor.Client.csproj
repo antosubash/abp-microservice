@@ -1,31 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Blazorise.Bootstrap5" Version="1.6.2" />
-        <PackageReference Include="Blazorise.Components" Version="1.6.2" />
-        <PackageReference Include="Blazorise.DataGrid" Version="1.6.2" />
-        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.6.2" />
-        <PackageReference Include="Blazorise.Snackbar" Version="1.6.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0.0" />
-        <PackageReference Include="System.Private.Uri" Version="4.3.2" />
-        <PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly.LeptonXLiteTheme" Version="4.0.0" />
-        <PackageReference Include="Volo.Abp.Autofac.WebAssembly" Version="9.0.0" />
-        <PackageReference Include="Volo.Abp.Identity.Blazor.WebAssembly" Version="9.0.0" />
-        <PackageReference Include="Volo.Abp.SettingManagement.Blazor.WebAssembly" Version="9.0.0" />
-        <PackageReference Include="Volo.Abp.TenantManagement.Blazor.WebAssembly" Version="9.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\..\..\shared\Tasky.Shared\Tasky.Shared.csproj" />
-        <ProjectReference Include="..\Tasky.WebApp.Domain.Shared\Tasky.WebApp.Domain.Shared.csproj" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.6.2" />
+    <PackageReference Include="Blazorise.Components" Version="1.6.2" />
+    <PackageReference Include="Blazorise.DataGrid" Version="1.6.2" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.6.2" />
+    <PackageReference Include="Blazorise.Snackbar" Version="1.6.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0.0" />
+    <PackageReference
+      Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer"
+      Version="9.0.0.0"
+    />
+    <PackageReference Include="System.Private.Uri" Version="4.3.2" />
+    <PackageReference
+      Include="Volo.Abp.AspNetCore.Components.WebAssembly.LeptonXLiteTheme"
+      Version="4.0.0"
+    />
+    <PackageReference Include="Volo.Abp.Autofac.WebAssembly" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.Identity.Blazor.WebAssembly" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Blazor.WebAssembly" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Blazor.WebAssembly" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\Tasky.Shared\Tasky.Shared.csproj" />
+    <ProjectReference Include="..\Tasky.WebApp.Domain.Shared\Tasky.WebApp.Domain.Shared.csproj" />
+  </ItemGroup>
 </Project>

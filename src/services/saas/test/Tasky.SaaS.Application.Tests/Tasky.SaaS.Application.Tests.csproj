@@ -1,16 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-
-
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>Tasky.SaaS</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Tasky.SaaS.Application\Tasky.SaaS.Application.csproj" />
     <ProjectReference Include="..\Tasky.SaaS.Domain.Tests\Tasky.SaaS.Domain.Tests.csproj" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
   </ItemGroup>
-
 </Project>

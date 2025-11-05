@@ -1,15 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <RootNamespace>Tasky.Projects</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="9.0.0" />
-        <ProjectReference Include="..\Tasky.Projects.Application.Contracts\Tasky.Projects.Application.Contracts.csproj" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Tasky.Projects</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Mvc" Version="9.0.0" />
+    <ProjectReference Include="..\Tasky.Projects.Application.Contracts\Tasky.Projects.Application.Contracts.csproj" />
+  </ItemGroup>
 </Project>
