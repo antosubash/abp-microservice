@@ -13,7 +13,10 @@ internal class Program
         var postgres = builder.AddPostgres(TaskyNames.Postgres).WithPgWeb();
         var rabbitMq = builder.AddRabbitMQ(TaskyNames.RabbitMq).WithManagementPlugin();
         var redis = builder.AddRedis(TaskyNames.Redis).WithRedisCommander();
-        var seq = builder.AddSeq(TaskyNames.Seq);
+        var seq = builder
+            .AddSeq(TaskyNames.Seq)
+            .WithEnvironment("ACCEPT_EULA", "Y")
+            .WithDataVolume();
 
         var adminDb = postgres.AddDatabase(TaskyNames.AdministrationDb);
         var identityDb = postgres.AddDatabase(TaskyNames.IdentityServiceDb);
