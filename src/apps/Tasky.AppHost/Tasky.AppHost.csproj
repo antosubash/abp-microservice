@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -9,14 +9,14 @@
         <UserSecretsId>0aae16e2-bc34-40f6-b9c4-10379cc46b10</UserSecretsId>
     </PropertyGroup>
 
-    <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+    <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.2" />
 
     <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
-        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.0.0" />
-        <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.0.0" />
-        <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0" />
-        <PackageReference Include="Aspire.Hosting.Seq" Version="9.0.0" />
+        <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.2" />
+        <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.5.2" />
+        <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.5.2" />
+        <PackageReference Include="Aspire.Hosting.Redis" Version="9.5.2" />
+        <PackageReference Include="Aspire.Hosting.Seq" Version="9.5.2" />
         <PackageReference Include="IdentityModel" Version="7.0.0" />
     </ItemGroup>
 

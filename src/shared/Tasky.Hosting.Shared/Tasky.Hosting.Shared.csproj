@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0" />
-        <PackageReference Include="Aspire.RabbitMQ.Client" Version="9.0.0" />
-        <PackageReference Include="Aspire.Seq" Version="9.0.0" />
-        <PackageReference Include="Aspire.StackExchange.Redis" Version="9.0.0" />
-        <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" Version="9.0.0" />
+        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.5.2" />
+        <PackageReference Include="Aspire.RabbitMQ.Client" Version="9.5.2" />
+        <PackageReference Include="Aspire.Seq" Version="9.5.2" />
+        <PackageReference Include="Aspire.StackExchange.Redis" Version="9.5.2" />
+        <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" Version="9.5.2" />
         <PackageReference Include="DistributedLock.Redis" Version="1.0.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="9.0.0.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
