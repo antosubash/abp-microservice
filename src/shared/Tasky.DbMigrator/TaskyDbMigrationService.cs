@@ -154,7 +154,7 @@ public class TaskyDbMigrationService(
         _logger.LogInformation("Completed migrating ({Name}).", name);
     }
 
-    private static async Task ApplyMigrationAsync<TDbContext>(
+    private static Task ApplyMigrationAsync<TDbContext>(
         TDbContext dbContext,
         CancellationToken cancellationToken
     )
@@ -162,13 +162,13 @@ public class TaskyDbMigrationService(
     {
         var strategy = dbContext.Database.CreateExecutionStrategy();
 
-        await strategy.ExecuteAsync(async () =>
+        return strategy.ExecuteAsync(async () =>
         {
             await dbContext.Database.MigrateAsync(cancellationToken);
         });
     }
 
-    private async Task SeedDataAsync(Tenant? tenant)
+    private Task SeedDataAsync(Tenant? tenant)
     {
         if (tenant is null)
         {
@@ -179,7 +179,7 @@ public class TaskyDbMigrationService(
             _logger.LogInformation("Seeding tenant data: {Name} ({Id})", tenant.Name, tenant.Id);
         }
 
-        await _dataSeeder.SeedAsync(
+        return _dataSeeder.SeedAsync(
             new DataSeedContext(tenant?.Id)
                 .WithProperty(
                     IdentityDataSeedContributor.AdminEmailPropertyName,

@@ -9,7 +9,7 @@ using Volo.Abp.AspNetCore.Components.WebAssembly.WebApp;
 
 internal class Program
 {
-    private static async Task Main(string[] args)
+    private static Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.AddServiceDefaults();
@@ -41,6 +41,6 @@ internal class Program
                 WebAppAdditionalAssembliesHelper.GetAssemblies<WebAppBlazorClientModule>()
             );
 
-        await app.RunAsync();
+        return app.RunAsync();
     }
 }

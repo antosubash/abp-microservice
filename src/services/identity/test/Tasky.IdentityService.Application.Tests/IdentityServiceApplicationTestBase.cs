@@ -4,4 +4,5 @@
  * See SampleAppService_Tests for example.
  */
 public abstract class IdentityServiceApplicationTestBase
-    : IdentityServiceTestBase<IdentityServiceApplicationTestModule> { }
+    : IdentityServiceTestBase<IdentityServiceApplicationTestModule>
+{ }

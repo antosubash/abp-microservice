@@ -18,9 +18,8 @@ internal class Program
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
-        builder
-            .Services.AddReverseProxy()
-            .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+        var reverseProxyBuilder = builder.Services.AddReverseProxy();
+        reverseProxyBuilder.LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
         var app = builder.Build();
 

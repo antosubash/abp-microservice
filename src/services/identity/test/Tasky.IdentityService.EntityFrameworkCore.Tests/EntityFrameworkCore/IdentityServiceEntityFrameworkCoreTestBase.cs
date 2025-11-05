@@ -4,4 +4,5 @@
  * while SampleRepository_Tests uses a different approach.
  */
 public abstract class IdentityServiceEntityFrameworkCoreTestBase
-    : IdentityServiceTestBase<IdentityServiceEntityFrameworkCoreTestModule> { }
+    : IdentityServiceTestBase<IdentityServiceEntityFrameworkCoreTestModule>
+{ }

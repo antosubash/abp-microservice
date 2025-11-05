@@ -3,7 +3,7 @@ using Projects;
 
 namespace Tasky.AppHost;
 
-internal class Program
+public class Program
 {
     private static void Main(string[] args)
     {
