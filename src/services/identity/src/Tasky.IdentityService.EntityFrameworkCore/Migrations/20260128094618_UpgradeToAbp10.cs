@@ -20,13 +20,15 @@ namespace Tasky.IdentityService.Migrations
                 oldClrType: typeof(string),
                 oldType: "character varying(50)",
                 oldMaxLength: 50,
-                oldNullable: true);
+                oldNullable: true
+            );
 
             migrationBuilder.AddColumn<string>(
                 name: "FrontChannelLogoutUri",
                 table: "OpenIddictApplications",
                 type: "text",
-                nullable: true);
+                nullable: true
+            );
 
             migrationBuilder.AlterColumn<string>(
                 name: "DeviceInfo",
@@ -37,37 +39,34 @@ namespace Tasky.IdentityService.Migrations
                 oldClrType: typeof(string),
                 oldType: "character varying(64)",
                 oldMaxLength: 64,
-                oldNullable: true);
+                oldNullable: true
+            );
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreationTime",
                 table: "AbpRoles",
                 type: "timestamp with time zone",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+            );
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "CreationTime",
                 table: "AbpClaimTypes",
                 type: "timestamp with time zone",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "FrontChannelLogoutUri",
-                table: "OpenIddictApplications");
+            migrationBuilder.DropColumn(name: "FrontChannelLogoutUri", table: "OpenIddictApplications");
 
-            migrationBuilder.DropColumn(
-                name: "CreationTime",
-                table: "AbpRoles");
+            migrationBuilder.DropColumn(name: "CreationTime", table: "AbpRoles");
 
-            migrationBuilder.DropColumn(
-                name: "CreationTime",
-                table: "AbpClaimTypes");
+            migrationBuilder.DropColumn(name: "CreationTime", table: "AbpClaimTypes");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Type",
@@ -78,7 +77,8 @@ namespace Tasky.IdentityService.Migrations
                 oldClrType: typeof(string),
                 oldType: "character varying(150)",
                 oldMaxLength: 150,
-                oldNullable: true);
+                oldNullable: true
+            );
 
             migrationBuilder.AlterColumn<string>(
                 name: "DeviceInfo",
@@ -89,7 +89,8 @@ namespace Tasky.IdentityService.Migrations
                 oldClrType: typeof(string),
                 oldType: "character varying(256)",
                 oldMaxLength: 256,
-                oldNullable: true);
+                oldNullable: true
+            );
         }
     }
 }

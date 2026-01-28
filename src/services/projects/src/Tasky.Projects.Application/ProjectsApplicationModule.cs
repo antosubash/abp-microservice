@@ -14,9 +14,6 @@ public class ProjectsApplicationModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddAutoMapperObjectMapper<ProjectsApplicationModule>();
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<ProjectsApplicationModule>(true);
-        });
+        Configure<AbpAutoMapperOptions>(options => options.AddMaps<ProjectsApplicationModule>(true));
     }
 }

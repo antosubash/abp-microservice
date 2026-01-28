@@ -22,10 +22,7 @@ public abstract class AdministrationTestBase<TStartupModule> : AbpIntegratedTest
         return WithUnitOfWorkAsync(new AbpUnitOfWorkOptions(), func);
     }
 
-    protected virtual async Task WithUnitOfWorkAsync(
-        AbpUnitOfWorkOptions options,
-        Func<Task> action
-    )
+    protected virtual async Task WithUnitOfWorkAsync(AbpUnitOfWorkOptions options, Func<Task> action)
     {
         using (var scope = ServiceProvider.CreateScope())
         {
@@ -33,9 +30,9 @@ public abstract class AdministrationTestBase<TStartupModule> : AbpIntegratedTest
 
             using (var uow = uowManager.Begin(options))
             {
-                await action();
+                await action().ConfigureAwait(false);
 
-                await uow.CompleteAsync();
+                await uow.CompleteAsync().ConfigureAwait(false);
             }
         }
     }
@@ -56,8 +53,8 @@ public abstract class AdministrationTestBase<TStartupModule> : AbpIntegratedTest
 
             using (var uow = uowManager.Begin(options))
             {
-                var result = await func();
-                await uow.CompleteAsync();
+                var result = await func().ConfigureAwait(false);
+                await uow.CompleteAsync().ConfigureAwait(false);
                 return result;
             }
         }

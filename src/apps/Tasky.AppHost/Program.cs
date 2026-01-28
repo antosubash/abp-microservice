@@ -25,10 +25,7 @@ internal class Program
         var saasDb = postgres.AddDatabase(TaskyNames.SaaSDb);
 
         var migrator = builder
-            .AddProject<Tasky_DbMigrator>(
-                TaskyNames.DbMigrator,
-                launchProfileName: LaunchProfileName
-            )
+            .AddProject<Tasky_DbMigrator>(TaskyNames.DbMigrator, launchProfileName: LaunchProfileName)
             .WithReference(adminDb)
             .WithReference(identityDb)
             .WithReference(projectsDb)
@@ -47,7 +44,9 @@ internal class Program
                     {
                         // Get the migrator project directory
                         var appHostDir = AppContext.BaseDirectory;
-                        var migratorDir = Path.GetFullPath(Path.Combine(appHostDir, "..", "..", "..", "..", "..", "shared", "Tasky.DbMigrator"));
+                        var migratorDir = Path.GetFullPath(
+                            Path.Combine(appHostDir, "..", "..", "..", "..", "..", "shared", "Tasky.DbMigrator")
+                        );
 
                         logger.LogInformation("DbMigrator directory: {MigratorDir}", migratorDir);
 
@@ -60,37 +59,53 @@ internal class Program
                             UseShellExecute = false,
                             RedirectStandardOutput = true,
                             RedirectStandardError = true,
-                            CreateNoWindow = true
+                            CreateNoWindow = true,
                         };
 
                         // Set environment variable
                         processInfo.Environment["RESET_DATABASES"] = "true";
 
                         // Copy connection strings from the migrator resource environment
-                        processInfo.Environment["ConnectionStrings__TaskyAdministrationDb"] = adminDb.Resource.ConnectionStringExpression.ValueExpression;
-                        processInfo.Environment["ConnectionStrings__TaskyIdentityServiceDb"] = identityDb.Resource.ConnectionStringExpression.ValueExpression;
-                        processInfo.Environment["ConnectionStrings__TaskyProjectsDb"] = projectsDb.Resource.ConnectionStringExpression.ValueExpression;
-                        processInfo.Environment["ConnectionStrings__TaskySaaSDb"] = saasDb.Resource.ConnectionStringExpression.ValueExpression;
+                        processInfo.Environment["ConnectionStrings__TaskyAdministrationDb"] = adminDb
+                            .Resource
+                            .ConnectionStringExpression
+                            .ValueExpression;
+                        processInfo.Environment["ConnectionStrings__TaskyIdentityServiceDb"] = identityDb
+                            .Resource
+                            .ConnectionStringExpression
+                            .ValueExpression;
+                        processInfo.Environment["ConnectionStrings__TaskyProjectsDb"] = projectsDb
+                            .Resource
+                            .ConnectionStringExpression
+                            .ValueExpression;
+                        processInfo.Environment["ConnectionStrings__TaskySaaSDb"] = saasDb
+                            .Resource
+                            .ConnectionStringExpression
+                            .ValueExpression;
 
                         using var process = new Process { StartInfo = processInfo };
 
                         process.OutputDataReceived += (sender, args) =>
                         {
                             if (!string.IsNullOrEmpty(args.Data))
+                            {
                                 logger.LogInformation("[DbMigrator] {Output}", args.Data);
+                            }
                         };
 
                         process.ErrorDataReceived += (sender, args) =>
                         {
                             if (!string.IsNullOrEmpty(args.Data))
+                            {
                                 logger.LogError("[DbMigrator] {Error}", args.Data);
+                            }
                         };
 
                         process.Start();
                         process.BeginOutputReadLine();
                         process.BeginErrorReadLine();
 
-                        await process.WaitForExitAsync(context.CancellationToken);
+                        await process.WaitForExitAsync(context.CancellationToken).ConfigureAwait(false);
 
                         if (process.ExitCode == 0)
                         {
@@ -113,7 +128,7 @@ internal class Program
                 {
                     IconName = "DatabaseArrowDown",
                     IconVariant = IconVariant.Filled,
-                    IsHighlighted = true
+                    IsHighlighted = true,
                 }
             );
 
@@ -149,10 +164,7 @@ internal class Program
             .WaitForCompletion(migrator);
 
         var saas = builder
-            .AddProject<Tasky_SaaS_HttpApi_Host>(
-                TaskyNames.SaaSApi,
-                launchProfileName: LaunchProfileName
-            )
+            .AddProject<Tasky_SaaS_HttpApi_Host>(TaskyNames.SaaSApi, launchProfileName: LaunchProfileName)
             .WithExternalHttpEndpoints()
             .WithReference(adminDb)
             .WithReference(saasDb)
@@ -164,10 +176,7 @@ internal class Program
             .WaitForCompletion(migrator);
 
         builder
-            .AddProject<Tasky_Projects_HttpApi_Host>(
-                TaskyNames.ProjectsApi,
-                launchProfileName: LaunchProfileName
-            )
+            .AddProject<Tasky_Projects_HttpApi_Host>(TaskyNames.ProjectsApi, launchProfileName: LaunchProfileName)
             .WithExternalHttpEndpoints()
             .WithReference(adminDb)
             .WithReference(projectsDb)
@@ -187,10 +196,7 @@ internal class Program
             .WaitFor(saas);
 
         var authserver = builder
-            .AddProject<Tasky_AuthServer>(
-                TaskyNames.AuthServer,
-                launchProfileName: LaunchProfileName
-            )
+            .AddProject<Tasky_AuthServer>(TaskyNames.AuthServer, launchProfileName: LaunchProfileName)
             .WithExternalHttpEndpoints()
             .WithReference(adminDb)
             .WithReference(identityDb)
@@ -203,10 +209,7 @@ internal class Program
             .WaitForCompletion(migrator);
 
         builder
-            .AddProject<Tasky_WebApp_Blazor>(
-                TaskyNames.WebAppClient,
-                launchProfileName: LaunchProfileName
-            )
+            .AddProject<Tasky_WebApp_Blazor>(TaskyNames.WebAppClient, launchProfileName: LaunchProfileName)
             .WithExternalHttpEndpoints()
             .WithReference(seq)
             .WaitFor(authserver)

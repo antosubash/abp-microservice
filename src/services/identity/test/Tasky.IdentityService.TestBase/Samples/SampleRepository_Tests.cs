@@ -7,15 +7,13 @@ namespace Tasky.IdentityService.Samples;
  * Then inherit these abstract classes from EF Core & MongoDB test projects.
  * In this way, both database providers are tests with the same set tests.
  */
-public abstract class SampleRepository_Tests<TStartupModule>
-    : IdentityServiceTestBase<TStartupModule>
+public abstract class SampleRepository_Tests<TStartupModule> : IdentityServiceTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
-    //private readonly ISampleRepository _sampleRepository;
-
+    // private readonly ISampleRepository _sampleRepository;
     protected SampleRepository_Tests()
     {
-        //_sampleRepository = GetRequiredService<ISampleRepository>();
+        // _sampleRepository = GetRequiredService<ISampleRepository>();
     }
 
     [Fact]

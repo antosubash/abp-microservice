@@ -21,9 +21,8 @@ public class ProjectsEntityFrameworkCoreTestModule : AbpModule
         Configure<AbpDbContextOptions>(options =>
         {
             options.Configure(abpDbContextConfigurationContext =>
-            {
-                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
-            });
+                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection)
+            );
         });
 
         context.Services.AddAlwaysDisableUnitOfWorkTransaction();
@@ -34,9 +33,7 @@ public class ProjectsEntityFrameworkCoreTestModule : AbpModule
         var connection = new SqliteConnection("Data Source=:memory:");
         connection.Open();
 
-        new ProjectsDbContext(
-            new DbContextOptionsBuilder<ProjectsDbContext>().UseSqlite(connection).Options
-        )
+        new ProjectsDbContext(new DbContextOptionsBuilder<ProjectsDbContext>().UseSqlite(connection).Options)
             .GetService<IRelationalDatabaseCreator>()
             .CreateTables();
 

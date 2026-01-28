@@ -40,10 +40,7 @@ public class AdministrationEntityFrameworkCoreModule : AbpModule
             );
         });
 
-        Configure<AbpDbContextOptions>(options =>
-        {
-            options.UseNpgsql();
-        });
+        Configure<AbpDbContextOptions>(options => options.UseNpgsql());
 
         context.Services.AddAbpDbContext<AdministrationDbContext>(options =>
         {

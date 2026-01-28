@@ -8,9 +8,7 @@ namespace Tasky.Administration.Samples;
 [Area(AdministrationRemoteServiceConsts.ModuleName)]
 [RemoteService(Name = AdministrationRemoteServiceConsts.RemoteServiceName)]
 [Route("api/Administration/sample")]
-public class SampleController(ISampleAppService sampleAppService)
-    : AdministrationController,
-        ISampleAppService
+public class SampleController(ISampleAppService sampleAppService) : AdministrationController, ISampleAppService
 {
     private readonly ISampleAppService _sampleAppService = sampleAppService;
 

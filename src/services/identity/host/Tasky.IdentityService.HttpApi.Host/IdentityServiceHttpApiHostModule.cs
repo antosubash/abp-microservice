@@ -47,10 +47,7 @@ public class IdentityServiceHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<IdentityServiceDomainModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.IdentityService.Domain",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.IdentityService.Domain", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<IdentityServiceApplicationContractsModule>(
@@ -65,10 +62,7 @@ public class IdentityServiceHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<IdentityServiceApplicationModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.IdentityService.Application",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.IdentityService.Application", Path.DirectorySeparatorChar)
                     )
                 );
             });

@@ -2,5 +2,5 @@
 
 public static class SaaSErrorCodes
 {
-    //Add your business exception error codes here...
+    // Add your business exception error codes here...
 }

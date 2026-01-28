@@ -16,11 +16,7 @@ namespace Tasky.SaaS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     NormalizedName = table.Column<string>(
                         type: "character varying(64)",
                         maxLength: 64,
@@ -33,31 +29,15 @@ namespace Tasky.SaaS.Migrations
                         maxLength: 40,
                         nullable: false
                     ),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeletionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpTenants", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpTenants", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -65,23 +45,12 @@ namespace Tasky.SaaS.Migrations
                 columns: table => new
                 {
                     TenantId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
-                    Value = table.Column<string>(
-                        type: "character varying(1024)",
-                        maxLength: 1024,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Value = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey(
-                        "PK_AbpTenantConnectionStrings",
-                        x => new { x.TenantId, x.Name }
-                    );
+                    table.PrimaryKey("PK_AbpTenantConnectionStrings", x => new { x.TenantId, x.Name });
                     table.ForeignKey(
                         name: "FK_AbpTenantConnectionStrings_AbpTenants_TenantId",
                         column: x => x.TenantId,
@@ -92,11 +61,7 @@ namespace Tasky.SaaS.Migrations
                 }
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpTenants_Name",
-                table: "AbpTenants",
-                column: "Name"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpTenants_Name", table: "AbpTenants", column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpTenants_NormalizedName",

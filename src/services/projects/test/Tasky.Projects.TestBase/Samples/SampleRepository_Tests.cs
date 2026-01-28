@@ -10,11 +10,10 @@ namespace Tasky.Projects.Samples;
 public abstract class SampleRepository_Tests<TStartupModule> : ProjectsTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
-    //private readonly ISampleRepository _sampleRepository;
-
+    // private readonly ISampleRepository _sampleRepository;
     protected SampleRepository_Tests()
     {
-        //_sampleRepository = GetRequiredService<ISampleRepository>();
+        // _sampleRepository = GetRequiredService<ISampleRepository>();
     }
 
     [Fact]

@@ -22,19 +22,19 @@ public class TenantCreatedEventHandler(
     private readonly ICurrentTenant _currentTenant = currentTenant;
     private readonly ILogger<TenantCreatedEventHandler> _logger = logger;
     private readonly IPermissionDataSeeder _permissionDataSeeder = permissionDataSeeder;
-    private readonly IPermissionDefinitionManager _permissionDefinitionManager =
-        permissionDefinitionManager;
+    private readonly IPermissionDefinitionManager _permissionDefinitionManager = permissionDefinitionManager;
+
     private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;
 
     public async Task HandleEventAsync(TenantCreatedEto eventData)
     {
         try
         {
-            await SeedDataAsync(eventData.Id);
+            await SeedDataAsync(eventData.Id).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            await HandleErrorTenantCreatedAsync(eventData, ex);
+            await HandleErrorTenantCreatedAsync(eventData, ex).ConfigureAwait(false);
         }
     }
 
@@ -50,29 +50,21 @@ public class TenantCreatedEventHandler(
         {
             var abpUnitOfWorkOptions = new AbpUnitOfWorkOptions { IsTransactional = true };
             using var uow = _unitOfWorkManager.Begin(abpUnitOfWorkOptions, true);
-            var multiTenancySide = tenantId is null
-                ? MultiTenancySides.Host
-                : MultiTenancySides.Tenant;
+            var multiTenancySide = tenantId is null ? MultiTenancySides.Host : MultiTenancySides.Tenant;
 
-            var permissions = await _permissionDefinitionManager.GetPermissionsAsync();
+            var permissions = await _permissionDefinitionManager.GetPermissionsAsync().ConfigureAwait(false);
 
             var permissionNames = permissions
                 .Where(p => p.MultiTenancySide.HasFlag(multiTenancySide))
-                .Where(p =>
-                    p.Providers.Count == 0
-                    || p.Providers.Contains(RolePermissionValueProvider.ProviderName)
-                )
+                .Where(p => p.Providers.Count == 0 || p.Providers.Contains(RolePermissionValueProvider.ProviderName))
                 .Select(p => p.Name)
                 .ToArray();
 
-            await _permissionDataSeeder.SeedAsync(
-                RolePermissionValueProvider.ProviderName,
-                "admin",
-                permissionNames,
-                tenantId
-            );
+            await _permissionDataSeeder
+                .SeedAsync(RolePermissionValueProvider.ProviderName, "admin", permissionNames, tenantId)
+                .ConfigureAwait(false);
 
-            await uow.CompleteAsync();
+            await uow.CompleteAsync().ConfigureAwait(false);
         }
     }
 }

@@ -13,7 +13,7 @@ public class WebAppMenuContributor : IMenuContributor
     {
         if (context.Menu.Name == StandardMenus.Main)
         {
-            await ConfigureMainMenuAsync(context);
+            await ConfigureMainMenuAsync(context).ConfigureAwait(false);
         }
     }
 

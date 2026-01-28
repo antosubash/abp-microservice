@@ -7,18 +7,15 @@ using Tasky.WebApp.Blazor;
 using Tasky.WebApp.Blazor.Client;
 using Volo.Abp.AspNetCore.Components.WebAssembly.WebApp;
 
-internal class Program
+internal static class Program
 {
     private static Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.AddServiceDefaults();
 
-        //https://github.com/dotnet/aspnetcore/issues/52530
-        builder.Services.Configure<RouteOptions>(options =>
-        {
-            options.SuppressCheckForUnhandledSecurityMetadata = true;
-        });
+        // https://github.com/dotnet/aspnetcore/issues/52530
+        builder.Services.Configure<RouteOptions>(options => options.SuppressCheckForUnhandledSecurityMetadata = true);
 
         // Add services to the container.
         builder.Services.AddRazorComponents().AddInteractiveWebAssemblyComponents();
@@ -33,13 +30,11 @@ internal class Program
         app.UseHttpsRedirection();
 
         app.MapStaticAssets();
-        //app.UseAntiforgery();
 
+        // app.UseAntiforgery();
         app.MapRazorComponents<App>()
             .AddInteractiveWebAssemblyRenderMode()
-            .AddAdditionalAssemblies(
-                WebAppAdditionalAssembliesHelper.GetAssemblies<WebAppBlazorClientModule>()
-            );
+            .AddAdditionalAssemblies(WebAppAdditionalAssembliesHelper.GetAssemblies<WebAppBlazorClientModule>());
 
         return app.RunAsync();
     }

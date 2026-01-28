@@ -36,37 +36,25 @@ public class SaaSHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<SaaSDomainSharedModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.SaaS.Domain.Shared",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.SaaS.Domain.Shared", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<SaaSDomainModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.SaaS.Domain",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.SaaS.Domain", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<SaaSApplicationContractsModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.SaaS.Application.Contracts",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.SaaS.Application.Contracts", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<SaaSApplicationModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.SaaS.Application",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.SaaS.Application", Path.DirectorySeparatorChar)
                     )
                 );
             });

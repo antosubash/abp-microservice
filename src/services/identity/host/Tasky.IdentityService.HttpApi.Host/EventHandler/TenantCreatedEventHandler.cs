@@ -25,24 +25,21 @@ public class TenantCreatedEventHandler(
         {
             using (_currentTenant.Change(eventData.Id))
             {
-                _logger.LogInformation(
-                    "Creating admin user for tenant {TenantId}...",
-                    eventData.Id
-                );
-                await _identityDataSeeder.SeedAsync(
-                    eventData.Properties.GetOrDefault(
-                        IdentityDataSeedContributor.AdminEmailPropertyName
-                    ) ?? "admin@antosubash.com",
-                    eventData.Properties.GetOrDefault(
-                        IdentityDataSeedContributor.AdminPasswordPropertyName
-                    ) ?? "1q2w3E*",
-                    eventData.Id
-                );
+                _logger.LogInformation("Creating admin user for tenant {TenantId}...", eventData.Id);
+                await _identityDataSeeder
+                    .SeedAsync(
+                        eventData.Properties.GetOrDefault(IdentityDataSeedContributor.AdminEmailPropertyName)
+                            ?? "admin@antosubash.com",
+                        eventData.Properties.GetOrDefault(IdentityDataSeedContributor.AdminPasswordPropertyName)
+                            ?? "1q2w3E*",
+                        eventData.Id
+                    )
+                    .ConfigureAwait(false);
             }
         }
         catch (Exception ex)
         {
-            await HandleErrorTenantCreatedAsync(eventData, ex);
+            await HandleErrorTenantCreatedAsync(eventData, ex).ConfigureAwait(false);
         }
     }
 

@@ -18,9 +18,8 @@ public class IdentityServiceDomainSharedModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<IdentityServiceDomainSharedModule>();
-        });
+            options.FileSets.AddEmbedded<IdentityServiceDomainSharedModule>()
+        );
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -31,8 +30,7 @@ public class IdentityServiceDomainSharedModule : AbpModule
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("IdentityService", typeof(IdentityServiceResource));
-        });
+            options.MapCodeNamespace("IdentityService", typeof(IdentityServiceResource))
+        );
     }
 }

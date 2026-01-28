@@ -8,15 +8,12 @@ namespace Tasky.Projects.Migrations
     public partial class UpgradeToAbp10 : Migration
     {
         /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-
-        }
+        protected override void Up(MigrationBuilder migrationBuilder) { }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
+            // Method intentionally left empty.
         }
     }
 }

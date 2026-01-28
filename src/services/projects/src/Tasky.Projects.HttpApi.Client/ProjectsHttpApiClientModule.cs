@@ -16,9 +16,6 @@ public class ProjectsHttpApiClientModule : AbpModule
             ProjectsRemoteServiceConsts.RemoteServiceName
         );
 
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<ProjectsHttpApiClientModule>();
-        });
+        Configure<AbpVirtualFileSystemOptions>(options => options.FileSets.AddEmbedded<ProjectsHttpApiClientModule>());
     }
 }

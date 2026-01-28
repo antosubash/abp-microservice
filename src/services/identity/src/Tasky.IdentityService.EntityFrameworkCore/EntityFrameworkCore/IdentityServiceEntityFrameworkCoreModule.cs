@@ -34,10 +34,7 @@ public class IdentityServiceEntityFrameworkCoreModule : AbpModule
             );
         });
 
-        Configure<AbpDbContextOptions>(options =>
-        {
-            options.UseNpgsql();
-        });
+        Configure<AbpDbContextOptions>(options => options.UseNpgsql());
 
         context.Services.AddAbpDbContext<IdentityServiceDbContext>(options =>
         {

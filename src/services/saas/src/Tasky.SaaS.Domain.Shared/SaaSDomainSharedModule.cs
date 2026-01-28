@@ -15,10 +15,7 @@ public class SaaSDomainSharedModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<SaaSDomainSharedModule>();
-        });
+        Configure<AbpVirtualFileSystemOptions>(options => options.FileSets.AddEmbedded<SaaSDomainSharedModule>());
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -28,9 +25,6 @@ public class SaaSDomainSharedModule : AbpModule
                 .AddVirtualJson("/Localization/SaaS");
         });
 
-        Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("SaaS", typeof(SaaSResource));
-        });
+        Configure<AbpExceptionLocalizationOptions>(options => options.MapCodeNamespace("SaaS", typeof(SaaSResource)));
     }
 }

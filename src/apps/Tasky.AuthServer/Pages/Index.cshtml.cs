@@ -18,16 +18,15 @@ public class IndexModel(
 
     public string CurrentLanguage { get; protected set; }
 
-    protected IOpenIddictApplicationRepository OpenIdApplicationRepository { get; } =
-        openIdApplicationRepository;
+    protected IOpenIddictApplicationRepository OpenIdApplicationRepository { get; } = openIdApplicationRepository;
 
     protected ILanguageProvider LanguageProvider { get; } = languageProvider;
 
     public async Task OnGetAsync()
     {
-        Applications = await OpenIdApplicationRepository.GetListAsync();
+        Applications = await OpenIdApplicationRepository.GetListAsync().ConfigureAwait(false);
 
-        Languages = await LanguageProvider.GetLanguagesAsync();
+        Languages = await LanguageProvider.GetLanguagesAsync().ConfigureAwait(false);
         CurrentLanguage = CultureInfo.CurrentCulture.DisplayName;
     }
 }

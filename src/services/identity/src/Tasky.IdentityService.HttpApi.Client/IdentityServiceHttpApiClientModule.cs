@@ -21,8 +21,7 @@ public class IdentityServiceHttpApiClientModule : AbpModule
         );
 
         Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<IdentityServiceHttpApiClientModule>();
-        });
+            options.FileSets.AddEmbedded<IdentityServiceHttpApiClientModule>()
+        );
     }
 }

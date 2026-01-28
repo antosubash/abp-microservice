@@ -10,7 +10,7 @@ using Volo.Abp.Identity.EntityFrameworkCore;
 
 namespace Tasky.IdentityService;
 
-public class Program
+public static class Program
 {
     public static async Task<int> Main(string[] args)
     {
@@ -38,10 +38,10 @@ public class Program
             );
 
             builder.Host.AddAppSettingsSecretsJson().UseAutofac().UseSerilog();
-            await builder.AddApplicationAsync<IdentityServiceHttpApiHostModule>();
+            await builder.AddApplicationAsync<IdentityServiceHttpApiHostModule>().ConfigureAwait(false);
             var app = builder.Build();
-            await app.InitializeApplicationAsync();
-            await app.RunAsync();
+            await app.InitializeApplicationAsync().ConfigureAwait(false);
+            await app.RunAsync().ConfigureAwait(false);
             return 0;
         }
         catch (Exception ex)
@@ -51,7 +51,7 @@ public class Program
         }
         finally
         {
-            await Log.CloseAndFlushAsync();
+            await Log.CloseAndFlushAsync().ConfigureAwait(false);
         }
     }
 }

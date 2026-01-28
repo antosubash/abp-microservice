@@ -23,8 +23,7 @@ public class AdministrationHttpApiClientModule : AbpModule
         );
 
         Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<AdministrationHttpApiClientModule>();
-        });
+            options.FileSets.AddEmbedded<AdministrationHttpApiClientModule>()
+        );
     }
 }

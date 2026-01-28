@@ -18,16 +18,14 @@ public class IdentityServiceHttpApiModule : AbpModule
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         PreConfigure<IMvcBuilder>(mvcBuilder =>
-        {
-            mvcBuilder.AddApplicationPartIfNotExists(typeof(IdentityServiceHttpApiModule).Assembly);
-        });
+            mvcBuilder.AddApplicationPartIfNotExists(typeof(IdentityServiceHttpApiModule).Assembly)
+        );
     }
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpLocalizationOptions>(options =>
-        {
-            options.Resources.Get<IdentityServiceResource>().AddBaseTypes(typeof(AbpUiResource));
-        });
+            options.Resources.Get<IdentityServiceResource>().AddBaseTypes(typeof(AbpUiResource))
+        );
     }
 }

@@ -3,7 +3,7 @@ using Scalar.AspNetCore;
 
 namespace Tasky.Gateway;
 
-internal class Program
+internal static class Program
 {
     private static void Main(string[] args)
     {
@@ -11,16 +11,11 @@ internal class Program
 
         builder.AddServiceDefaults();
 
-        builder.Services.AddOpenApi(options =>
-        {
-            options.UseJwtBearerAuthentication();
-        });
+        builder.Services.AddOpenApi(options => options.UseJwtBearerAuthentication());
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
 
-        builder
-            .Services.AddReverseProxy()
-            .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+        builder.Services.AddReverseProxy().LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
         var app = builder.Build();
 

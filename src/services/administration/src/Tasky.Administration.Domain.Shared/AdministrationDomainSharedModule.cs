@@ -22,9 +22,8 @@ public class AdministrationDomainSharedModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<AdministrationDomainSharedModule>();
-        });
+            options.FileSets.AddEmbedded<AdministrationDomainSharedModule>()
+        );
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -35,8 +34,7 @@ public class AdministrationDomainSharedModule : AbpModule
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("Administration", typeof(AdministrationResource));
-        });
+            options.MapCodeNamespace("Administration", typeof(AdministrationResource))
+        );
     }
 }

@@ -25,10 +25,7 @@ public static class OpenApiOptionsExtensions
             (document, context, cancellationToken) =>
             {
                 document.Components ??= new();
-                document.Components.SecuritySchemes!.Add(
-                    JwtBearerDefaults.AuthenticationScheme,
-                    securityScheme
-                );
+                document.Components.SecuritySchemes!.Add(JwtBearerDefaults.AuthenticationScheme, securityScheme);
 
                 return Task.CompletedTask;
             }
@@ -37,11 +34,7 @@ public static class OpenApiOptionsExtensions
         options.AddOperationTransformer(
             (operation, context, cancellationToken) =>
             {
-                if (
-                    context
-                        .Description.ActionDescriptor.EndpointMetadata.OfType<IAuthorizeData>()
-                        .Any()
-                )
+                if (context.Description.ActionDescriptor.EndpointMetadata.OfType<IAuthorizeData>().Any())
                 {
                     operation.Security = [new() { [schemeReference] = [] }];
                 }

@@ -46,26 +46,14 @@ public class TaskyHostingModule : AbpModule
 
         ConfigureDistributedLocking(context, configuration);
 
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-            options.IsEnabled = MultiTenancyConsts.IsEnabled;
-        });
+        Configure<AbpMultiTenancyOptions>(options => options.IsEnabled = MultiTenancyConsts.IsEnabled);
 
         // Disable dynamic initializers to prevent race conditions when multiple services share the same database
-        Configure<PermissionManagementOptions>(options =>
-        {
-            options.IsDynamicPermissionStoreEnabled = false;
-        });
+        Configure<PermissionManagementOptions>(options => options.IsDynamicPermissionStoreEnabled = false);
 
-        Configure<FeatureManagementOptions>(options =>
-        {
-            options.IsDynamicFeatureStoreEnabled = false;
-        });
+        Configure<FeatureManagementOptions>(options => options.IsDynamicFeatureStoreEnabled = false);
 
-        Configure<SettingManagementOptions>(options =>
-        {
-            options.IsDynamicSettingStoreEnabled = false;
-        });
+        Configure<SettingManagementOptions>(options => options.IsDynamicSettingStoreEnabled = false);
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -103,16 +91,11 @@ public class TaskyHostingModule : AbpModule
         });
     }
 
-    private static void ConfigureDistributedLocking(
-        ServiceConfigurationContext context,
-        IConfiguration configuration
-    )
+    private static void ConfigureDistributedLocking(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.AddSingleton<IDistributedLockProvider>(sp =>
         {
-            var connection = ConnectionMultiplexer.Connect(
-                configuration.GetConnectionString(TaskyNames.Redis)!
-            );
+            var connection = ConnectionMultiplexer.Connect(configuration.GetConnectionString(TaskyNames.Redis)!);
 
             return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
         });
@@ -128,14 +111,10 @@ public static class HostingExtensions
         string name
     )
     {
-        var dataProtectionBuilder = context
-            .Services.AddDataProtection()
-            .SetApplicationName(TaskyNames.Tasky);
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName(TaskyNames.Tasky);
         if (!hostingEnvironment.IsDevelopment())
         {
-            var redis = ConnectionMultiplexer.Connect(
-                configuration.GetConnectionString(TaskyNames.Redis)!
-            );
+            var redis = ConnectionMultiplexer.Connect(configuration.GetConnectionString(TaskyNames.Redis)!);
             dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, $"{name}-Keys");
         }
 

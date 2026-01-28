@@ -27,8 +27,8 @@ namespace Tasky.DbMigrator;
 [DependsOn(typeof(ProjectsApplicationContractsModule))]
 [DependsOn(typeof(SaaSEntityFrameworkCoreModule))]
 [DependsOn(typeof(SaaSApplicationContractsModule))]
-//[DependsOn(typeof(WebAppEntityFrameworkCoreModule))]
-//[DependsOn(typeof(WebAppApplicationContractsModule))]
+// [DependsOn(typeof(WebAppEntityFrameworkCoreModule))]
+// [DependsOn(typeof(WebAppApplicationContractsModule))]
 public class TaskyDbMigratorModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
@@ -41,18 +41,15 @@ public class TaskyDbMigratorModule : AbpModule
     {
         // PostConfigure runs AFTER all other Configure calls, ensuring our settings override everything
         context.Services.PostConfigure<PermissionManagementOptions>(options =>
-        {
-            options.IsDynamicPermissionStoreEnabled = false;
-        });
+            options.IsDynamicPermissionStoreEnabled = false
+        );
 
         context.Services.PostConfigure<FeatureManagementOptions>(options =>
-        {
-            options.IsDynamicFeatureStoreEnabled = false;
-        });
+            options.IsDynamicFeatureStoreEnabled = false
+        );
 
         context.Services.PostConfigure<SettingManagementOptions>(options =>
-        {
-            options.IsDynamicSettingStoreEnabled = false;
-        });
+            options.IsDynamicSettingStoreEnabled = false
+        );
     }
 }

@@ -16,28 +16,16 @@ namespace Tasky.IdentityService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Required = table.Column<bool>(type: "boolean", nullable: false),
                     IsStatic = table.Column<bool>(type: "boolean", nullable: false),
-                    Regex = table.Column<string>(
-                        type: "character varying(512)",
-                        maxLength: 512,
-                        nullable: true
-                    ),
+                    Regex = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     RegexDescription = table.Column<string>(
                         type: "character varying(128)",
                         maxLength: 128,
                         nullable: true
                     ),
-                    Description = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
+                    Description = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ValueType = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(
@@ -46,10 +34,7 @@ namespace Tasky.IdentityService.Migrations
                         nullable: false
                     ),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpClaimTypes", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpClaimTypes", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -62,10 +47,7 @@ namespace Tasky.IdentityService.Migrations
                     TargetUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TargetTenantId = table.Column<Guid>(type: "uuid", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpLinkUsers", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpLinkUsers", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -75,16 +57,8 @@ namespace Tasky.IdentityService.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     ParentId = table.Column<Guid>(type: "uuid", nullable: true),
-                    Code = table.Column<string>(
-                        type: "character varying(95)",
-                        maxLength: 95,
-                        nullable: false
-                    ),
-                    DisplayName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
+                    Code = table.Column<string>(type: "character varying(95)", maxLength: 95, nullable: false),
+                    DisplayName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(
@@ -92,26 +66,13 @@ namespace Tasky.IdentityService.Migrations
                         maxLength: 40,
                         nullable: false
                     ),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeletionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -131,11 +92,7 @@ namespace Tasky.IdentityService.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    Name = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     NormalizedName = table.Column<string>(
                         type: "character varying(256)",
                         maxLength: 256,
@@ -152,10 +109,7 @@ namespace Tasky.IdentityService.Migrations
                         nullable: false
                     ),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpRoles", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpRoles", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -169,51 +123,20 @@ namespace Tasky.IdentityService.Migrations
                         maxLength: 96,
                         nullable: true
                     ),
-                    Identity = table.Column<string>(
-                        type: "character varying(96)",
-                        maxLength: 96,
-                        nullable: true
-                    ),
-                    Action = table.Column<string>(
-                        type: "character varying(96)",
-                        maxLength: 96,
-                        nullable: true
-                    ),
+                    Identity = table.Column<string>(type: "character varying(96)", maxLength: 96, nullable: true),
+                    Action = table.Column<string>(type: "character varying(96)", maxLength: 96, nullable: true),
                     UserId = table.Column<Guid>(type: "uuid", nullable: true),
-                    UserName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
-                    TenantName = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    ClientId = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    CorrelationId = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    TenantName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    ClientId = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    CorrelationId = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                     ClientIpAddress = table.Column<string>(
                         type: "character varying(64)",
                         maxLength: 64,
                         nullable: true
                     ),
-                    BrowserInfo = table.Column<string>(
-                        type: "character varying(512)",
-                        maxLength: 512,
-                        nullable: true
-                    ),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    BrowserInfo = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(
                         type: "character varying(40)",
@@ -221,10 +144,7 @@ namespace Tasky.IdentityService.Migrations
                         nullable: false
                     ),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpSecurityLogs", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpSecurityLogs", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -232,47 +152,22 @@ namespace Tasky.IdentityService.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    SessionId = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    Device = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
-                    DeviceInfo = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
+                    SessionId = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Device = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    DeviceInfo = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ClientId = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
+                    ClientId = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                     IpAddresses = table.Column<string>(
                         type: "character varying(2048)",
                         maxLength: 2048,
                         nullable: true
                     ),
-                    SignedIn = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
-                    LastAccessed = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    SignedIn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastAccessed = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpSessions", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpSessions", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -283,19 +178,10 @@ namespace Tasky.IdentityService.Migrations
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     SourceUserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TargetUserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StartTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
-                    EndTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    StartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpUserDelegations", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpUserDelegations", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -304,90 +190,36 @@ namespace Tasky.IdentityService.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    UserName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     NormalizedUserName = table.Column<string>(
                         type: "character varying(256)",
                         maxLength: 256,
                         nullable: false
                     ),
-                    Name = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    Surname = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    Email = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    Surname = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     NormalizedEmail = table.Column<string>(
                         type: "character varying(256)",
                         maxLength: 256,
                         nullable: false
                     ),
-                    EmailConfirmed = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
-                    PasswordHash = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    PasswordHash = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     SecurityStamp = table.Column<string>(
                         type: "character varying(256)",
                         maxLength: 256,
                         nullable: false
                     ),
-                    IsExternal = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
-                    PhoneNumber = table.Column<string>(
-                        type: "character varying(16)",
-                        maxLength: 16,
-                        nullable: true
-                    ),
-                    PhoneNumberConfirmed = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
+                    IsExternal = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
-                    LockoutEnd = table.Column<DateTimeOffset>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
-                    LockoutEnabled = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
-                    AccessFailedCount = table.Column<int>(
-                        type: "integer",
-                        nullable: false,
-                        defaultValue: 0
-                    ),
-                    ShouldChangePasswordOnNextLogin = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false
-                    ),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
+                    ShouldChangePasswordOnNextLogin = table.Column<bool>(type: "boolean", nullable: false),
                     EntityVersion = table.Column<int>(type: "integer", nullable: false),
                     LastPasswordChangeTime = table.Column<DateTimeOffset>(
                         type: "timestamp with time zone",
@@ -399,31 +231,15 @@ namespace Tasky.IdentityService.Migrations
                         maxLength: 40,
                         nullable: false
                     ),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeletionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpUsers", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpUsers", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -436,22 +252,10 @@ namespace Tasky.IdentityService.Migrations
                         maxLength: 50,
                         nullable: true
                     ),
-                    ClientId = table.Column<string>(
-                        type: "character varying(100)",
-                        maxLength: 100,
-                        nullable: true
-                    ),
+                    ClientId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ClientSecret = table.Column<string>(type: "text", nullable: true),
-                    ClientType = table.Column<string>(
-                        type: "character varying(50)",
-                        maxLength: 50,
-                        nullable: true
-                    ),
-                    ConsentType = table.Column<string>(
-                        type: "character varying(50)",
-                        maxLength: 50,
-                        nullable: true
-                    ),
+                    ClientType = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    ConsentType = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     DisplayName = table.Column<string>(type: "text", nullable: true),
                     DisplayNames = table.Column<string>(type: "text", nullable: true),
                     JsonWebKeySet = table.Column<string>(type: "text", nullable: true),
@@ -469,31 +273,15 @@ namespace Tasky.IdentityService.Migrations
                         maxLength: 40,
                         nullable: false
                     ),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeletionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictApplications", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_OpenIddictApplications", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -505,11 +293,7 @@ namespace Tasky.IdentityService.Migrations
                     Descriptions = table.Column<string>(type: "text", nullable: true),
                     DisplayName = table.Column<string>(type: "text", nullable: true),
                     DisplayNames = table.Column<string>(type: "text", nullable: true),
-                    Name = table.Column<string>(
-                        type: "character varying(200)",
-                        maxLength: 200,
-                        nullable: true
-                    ),
+                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
                     Properties = table.Column<string>(type: "text", nullable: true),
                     Resources = table.Column<string>(type: "text", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
@@ -518,31 +302,15 @@ namespace Tasky.IdentityService.Migrations
                         maxLength: 40,
                         nullable: false
                     ),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
-                    LastModificationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    LastModificationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     LastModifierId = table.Column<Guid>(type: "uuid", nullable: true),
-                    IsDeleted = table.Column<bool>(
-                        type: "boolean",
-                        nullable: false,
-                        defaultValue: false
-                    ),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false, defaultValue: false),
                     DeleterId = table.Column<Guid>(type: "uuid", nullable: true),
-                    DeletionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_OpenIddictScopes", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -552,18 +320,12 @@ namespace Tasky.IdentityService.Migrations
                     RoleId = table.Column<Guid>(type: "uuid", nullable: false),
                     OrganizationUnitId = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey(
-                        "PK_AbpOrganizationUnitRoles",
-                        x => new { x.OrganizationUnitId, x.RoleId }
-                    );
+                    table.PrimaryKey("PK_AbpOrganizationUnitRoles", x => new { x.OrganizationUnitId, x.RoleId });
                     table.ForeignKey(
                         name: "FK_AbpOrganizationUnitRoles_AbpOrganizationUnits_OrganizationU~",
                         column: x => x.OrganizationUnitId,
@@ -588,16 +350,8 @@ namespace Tasky.IdentityService.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     RoleId = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ClaimType = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
-                    ClaimValue = table.Column<string>(
-                        type: "character varying(1024)",
-                        maxLength: 1024,
-                        nullable: true
-                    ),
+                    ClaimType = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    ClaimValue = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: true),
                 },
                 constraints: table =>
                 {
@@ -619,16 +373,8 @@ namespace Tasky.IdentityService.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ClaimType = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
-                    ClaimValue = table.Column<string>(
-                        type: "character varying(1024)",
-                        maxLength: 1024,
-                        nullable: true
-                    ),
+                    ClaimType = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    ClaimValue = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: true),
                 },
                 constraints: table =>
                 {
@@ -648,17 +394,9 @@ namespace Tasky.IdentityService.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LoginProvider = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
+                    LoginProvider = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ProviderKey = table.Column<string>(
-                        type: "character varying(196)",
-                        maxLength: 196,
-                        nullable: false
-                    ),
+                    ProviderKey = table.Column<string>(type: "character varying(196)", maxLength: 196, nullable: false),
                     ProviderDisplayName = table.Column<string>(
                         type: "character varying(128)",
                         maxLength: 128,
@@ -685,18 +423,12 @@ namespace Tasky.IdentityService.Migrations
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     OrganizationUnitId = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreatorId = table.Column<Guid>(type: "uuid", nullable: true),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey(
-                        "PK_AbpUserOrganizationUnits",
-                        x => new { x.OrganizationUnitId, x.UserId }
-                    );
+                    table.PrimaryKey("PK_AbpUserOrganizationUnits", x => new { x.OrganizationUnitId, x.UserId });
                     table.ForeignKey(
                         name: "FK_AbpUserOrganizationUnits_AbpOrganizationUnits_OrganizationU~",
                         column: x => x.OrganizationUnitId,
@@ -747,16 +479,8 @@ namespace Tasky.IdentityService.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LoginProvider = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
+                    LoginProvider = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     Value = table.Column<string>(type: "text", nullable: true),
                 },
@@ -787,27 +511,12 @@ namespace Tasky.IdentityService.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ApplicationId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationDate = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Properties = table.Column<string>(type: "text", nullable: true),
                     Scopes = table.Column<string>(type: "text", nullable: true),
-                    Status = table.Column<string>(
-                        type: "character varying(50)",
-                        maxLength: 50,
-                        nullable: true
-                    ),
-                    Subject = table.Column<string>(
-                        type: "character varying(400)",
-                        maxLength: 400,
-                        nullable: true
-                    ),
-                    Type = table.Column<string>(
-                        type: "character varying(50)",
-                        maxLength: 50,
-                        nullable: true
-                    ),
+                    Status = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Subject = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: true),
+                    Type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(
                         type: "character varying(40)",
@@ -834,40 +543,15 @@ namespace Tasky.IdentityService.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ApplicationId = table.Column<Guid>(type: "uuid", nullable: true),
                     AuthorizationId = table.Column<Guid>(type: "uuid", nullable: true),
-                    CreationDate = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
-                    ExpirationDate = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     Payload = table.Column<string>(type: "text", nullable: true),
                     Properties = table.Column<string>(type: "text", nullable: true),
-                    RedemptionDate = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: true
-                    ),
-                    ReferenceId = table.Column<string>(
-                        type: "character varying(100)",
-                        maxLength: 100,
-                        nullable: true
-                    ),
-                    Status = table.Column<string>(
-                        type: "character varying(50)",
-                        maxLength: 50,
-                        nullable: true
-                    ),
-                    Subject = table.Column<string>(
-                        type: "character varying(400)",
-                        maxLength: 400,
-                        nullable: true
-                    ),
-                    Type = table.Column<string>(
-                        type: "character varying(50)",
-                        maxLength: 50,
-                        nullable: true
-                    ),
+                    RedemptionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ReferenceId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Status = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Subject = table.Column<string>(type: "character varying(400)", maxLength: 400, nullable: true),
+                    Type = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(
                         type: "character varying(40)",
@@ -896,13 +580,7 @@ namespace Tasky.IdentityService.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AbpLinkUsers_SourceUserId_SourceTenantId_TargetUserId_Targe~",
                 table: "AbpLinkUsers",
-                columns: new[]
-                {
-                    "SourceUserId",
-                    "SourceTenantId",
-                    "TargetUserId",
-                    "TargetTenantId",
-                },
+                columns: new[] { "SourceUserId", "SourceTenantId", "TargetUserId", "TargetTenantId" },
                 unique: true
             );
 
@@ -924,11 +602,7 @@ namespace Tasky.IdentityService.Migrations
                 column: "ParentId"
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpRoleClaims_RoleId",
-                table: "AbpRoleClaims",
-                column: "RoleId"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpRoleClaims_RoleId", table: "AbpRoleClaims", column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpRoles_NormalizedName",
@@ -960,17 +634,9 @@ namespace Tasky.IdentityService.Migrations
                 columns: new[] { "TenantId", "UserId" }
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpSessions_Device",
-                table: "AbpSessions",
-                column: "Device"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpSessions_Device", table: "AbpSessions", column: "Device");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpSessions_SessionId",
-                table: "AbpSessions",
-                column: "SessionId"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpSessions_SessionId", table: "AbpSessions", column: "SessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpSessions_TenantId_UserId",
@@ -978,11 +644,7 @@ namespace Tasky.IdentityService.Migrations
                 columns: new[] { "TenantId", "UserId" }
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpUserClaims_UserId",
-                table: "AbpUserClaims",
-                column: "UserId"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpUserClaims_UserId", table: "AbpUserClaims", column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpUserLogins_LoginProvider_ProviderKey",
@@ -1002,11 +664,7 @@ namespace Tasky.IdentityService.Migrations
                 columns: new[] { "RoleId", "UserId" }
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpUsers_Email",
-                table: "AbpUsers",
-                column: "Email"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpUsers_Email", table: "AbpUsers", column: "Email");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpUsers_NormalizedEmail",
@@ -1020,11 +678,7 @@ namespace Tasky.IdentityService.Migrations
                 column: "NormalizedUserName"
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpUsers_UserName",
-                table: "AbpUsers",
-                column: "UserName"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpUsers_UserName", table: "AbpUsers", column: "UserName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
@@ -1038,11 +692,7 @@ namespace Tasky.IdentityService.Migrations
                 columns: new[] { "ApplicationId", "Status", "Subject", "Type" }
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_OpenIddictScopes_Name",
-                table: "OpenIddictScopes",
-                column: "Name"
-            );
+            migrationBuilder.CreateIndex(name: "IX_OpenIddictScopes_Name", table: "OpenIddictScopes", column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictTokens_ApplicationId_Status_Subject_Type",

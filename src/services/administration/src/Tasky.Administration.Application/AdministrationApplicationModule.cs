@@ -20,9 +20,6 @@ public class AdministrationApplicationModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddAutoMapperObjectMapper<AdministrationApplicationModule>();
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<AdministrationApplicationModule>(true);
-        });
+        Configure<AbpAutoMapperOptions>(options => options.AddMaps<AdministrationApplicationModule>(true));
     }
 }

@@ -59,10 +59,7 @@ public class WebAppBlazorClientModule : AbpModule
 
     private void ConfigureAutoMapper()
     {
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<WebAppBlazorClientModule>();
-        });
+        Configure<AbpAutoMapperOptions>(options => options.AddMaps<WebAppBlazorClientModule>());
     }
 
     private static void ConfigureBlazorise(ServiceConfigurationContext context)
@@ -75,25 +72,16 @@ public class WebAppBlazorClientModule : AbpModule
         IWebAssemblyHostEnvironment environment
     )
     {
-        context.Services.AddTransient(sp => new HttpClient
-        {
-            BaseAddress = new Uri(environment.BaseAddress),
-        });
+        context.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(environment.BaseAddress) });
     }
 
     private void ConfigureMenu()
     {
-        Configure<AbpNavigationOptions>(options =>
-        {
-            options.MenuContributors.Add(new WebAppMenuContributor());
-        });
+        Configure<AbpNavigationOptions>(options => options.MenuContributors.Add(new WebAppMenuContributor()));
     }
 
     private void ConfigureRouter()
     {
-        Configure<AbpRouterOptions>(options =>
-        {
-            options.AppAssembly = typeof(WebAppBlazorClientModule).Assembly;
-        });
+        Configure<AbpRouterOptions>(options => options.AppAssembly = typeof(WebAppBlazorClientModule).Assembly);
     }
 }

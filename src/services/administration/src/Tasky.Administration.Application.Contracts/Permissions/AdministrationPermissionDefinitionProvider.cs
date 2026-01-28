@@ -8,10 +8,7 @@ public class AdministrationPermissionDefinitionProvider : PermissionDefinitionPr
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var administrationGroup = context.AddGroup(
-            AdministrationPermissions.GroupName,
-            L("Permission:Administration")
-        );
+        var administrationGroup = context.AddGroup(AdministrationPermissions.GroupName, L("Permission:Administration"));
         var settingsPermissions = administrationGroup.AddPermission(
             AdministrationPermissions.Settings.Default,
             L("Permission:Administration:Settings")

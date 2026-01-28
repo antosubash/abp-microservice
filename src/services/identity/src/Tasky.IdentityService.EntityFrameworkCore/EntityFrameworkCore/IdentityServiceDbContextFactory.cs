@@ -20,8 +20,7 @@ public class IdentityServiceDbContextFactory : IDesignTimeDbContextFactory<Ident
 
     private static string GetConnectionStringFromConfiguration()
     {
-        return BuildConfiguration()
-            .GetConnectionString(IdentityServiceDbProperties.ConnectionStringName);
+        return BuildConfiguration().GetConnectionString(IdentityServiceDbProperties.ConnectionStringName);
     }
 
     private static IConfigurationRoot BuildConfiguration()

@@ -42,19 +42,13 @@ public class AdministrationHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<AdministrationDomainSharedModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.Administration.Domain.Shared",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.Administration.Domain.Shared", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<AdministrationDomainModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.Administration.Domain",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.Administration.Domain", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<AdministrationApplicationContractsModule>(
@@ -69,10 +63,7 @@ public class AdministrationHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<AdministrationApplicationModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.Administration.Application",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.Administration.Application", Path.DirectorySeparatorChar)
                     )
                 );
             });

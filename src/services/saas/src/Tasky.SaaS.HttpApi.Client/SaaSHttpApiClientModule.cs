@@ -18,9 +18,6 @@ public class SaaSHttpApiClientModule : AbpModule
             SaaSRemoteServiceConsts.RemoteServiceName
         );
 
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<SaaSHttpApiClientModule>();
-        });
+        Configure<AbpVirtualFileSystemOptions>(options => options.FileSets.AddEmbedded<SaaSHttpApiClientModule>());
     }
 }

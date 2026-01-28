@@ -1,6 +1,6 @@
 ﻿namespace Tasky.SaaS;
 
-public class SaaSRemoteServiceConsts
+public static class SaaSRemoteServiceConsts
 {
     public const string RemoteServiceName = "SaaS";
 

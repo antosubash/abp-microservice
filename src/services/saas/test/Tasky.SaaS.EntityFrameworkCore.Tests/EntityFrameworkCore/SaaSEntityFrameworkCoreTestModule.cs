@@ -21,9 +21,8 @@ public class SaaSEntityFrameworkCoreTestModule : AbpModule
         Configure<AbpDbContextOptions>(options =>
         {
             options.Configure(abpDbContextConfigurationContext =>
-            {
-                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
-            });
+                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection)
+            );
         });
 
         context.Services.AddAlwaysDisableUnitOfWorkTransaction();
@@ -34,9 +33,7 @@ public class SaaSEntityFrameworkCoreTestModule : AbpModule
         var connection = new SqliteConnection("Data Source=:memory:");
         connection.Open();
 
-        new SaaSDbContext(
-            new DbContextOptionsBuilder<SaaSDbContext>().UseSqlite(connection).Options
-        )
+        new SaaSDbContext(new DbContextOptionsBuilder<SaaSDbContext>().UseSqlite(connection).Options)
             .GetService<IRelationalDatabaseCreator>()
             .CreateTables();
 

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Tasky.Administration.HttpApi.Client.ConsoleTestApp;
 
-internal class Program
+internal static class Program
 {
     private static Task Main(string[] args)
     {
@@ -15,11 +15,6 @@ internal class Program
     {
         return Host.CreateDefaultBuilder(args)
             .AddAppSettingsSecretsJson()
-            .ConfigureServices(
-                (_, services) =>
-                {
-                    services.AddHostedService<ConsoleTestAppHostedService>();
-                }
-            );
+            .ConfigureServices((_, services) => services.AddHostedService<ConsoleTestAppHostedService>());
     }
 }

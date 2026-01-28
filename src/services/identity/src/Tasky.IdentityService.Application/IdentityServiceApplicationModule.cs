@@ -18,9 +18,6 @@ public class IdentityServiceApplicationModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddAutoMapperObjectMapper<IdentityServiceApplicationModule>();
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<IdentityServiceApplicationModule>(true);
-        });
+        Configure<AbpAutoMapperOptions>(options => options.AddMaps<IdentityServiceApplicationModule>(true));
     }
 }
