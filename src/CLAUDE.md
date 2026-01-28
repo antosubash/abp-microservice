@@ -10,6 +10,42 @@ This is an ABP Framework-based microservices template using .NET Aspire for orch
 **Target Framework:** .NET 10.0
 **.NET Aspire Version:** 9.5.2
 
+## Quick Start with Makefile
+
+A comprehensive Makefile is available at the repository root for common development tasks:
+
+```bash
+# First-time setup
+make install          # Restore tools and install git hooks
+
+# Daily workflow
+make build            # Build the solution
+make test             # Run all tests
+make format           # Format code with CSharpier
+make fix              # Auto-fix analyzers + style + format
+make run              # Run with .NET Aspire orchestration
+
+# Database operations
+make migrate          # Run database migrations
+make reset-db         # Reset databases (dev only - DESTRUCTIVE)
+
+# Individual services
+make run-gateway      # Run API Gateway only
+make run-auth         # Run AuthServer only
+make run-admin        # Run Administration service only
+
+# Code quality
+make check-format     # Check formatting without changes
+make warnings         # Show build warnings/errors
+make analyzers        # Show analyzer diagnostics
+
+# Help
+make help             # Show all available targets
+make dev-help         # Show quick start guide
+```
+
+All commands below can also be run using the Makefile shortcuts shown above.
+
 ## Development Commands
 
 ### Building the Solution
@@ -125,18 +161,83 @@ dotnet run
 
 **WARNING:** This permanently deletes ALL data in all databases!
 
+### Code Formatting and Auto-Fixes
+
+This project uses automated tools to format code and fix analyzer issues:
+
+```bash
+# Format entire solution with CSharpier
+dotnet csharpier .
+
+# Auto-fix analyzer diagnostics (Roslynator, SonarAnalyzer, etc.)
+dotnet format analyzers src/Tasky.sln
+
+# Auto-fix code style issues (IDE* rules)
+dotnet format style src/Tasky.sln
+
+# Run all auto-fixes and formatting
+dotnet format analyzers src/Tasky.sln && dotnet format style src/Tasky.sln && dotnet csharpier .
+
+# Check formatting without making changes
+dotnet csharpier --check .
+```
+
+**Why CSharpier:**
+- Opinionated (minimal configuration needed)
+- Fast (10x faster than dotnet format)
+- Consistent (no debates about style)
+- Automatic via pre-commit hooks
+
+**Why dotnet format:**
+- Auto-fixes analyzer diagnostics (removes unused usings, simplifies expressions, etc.)
+- Fixes code style violations (IDE* rules)
+- Works with all Roslyn analyzers that provide code fixes
+
 ### Code Analysis
 
 ```bash
-# Run code analyzers (AsyncFixer, Microsoft.CodeAnalysis.NetAnalyzers)
-dotnet build /p:TreatWarningsAsErrors=true
+# Run all analyzers with strict enforcement
+dotnet build /p:AnalysisMode=All /p:EnforceCodeStyleInBuild=true
 
-# The solution includes analyzers via Directory.Build.props:
+# The solution includes comprehensive analyzers:
 # - AsyncFixer (async/await best practices)
-# - Microsoft.CodeAnalysis.NetAnalyzers
-# - Microsoft.VisualStudio.Threading.Analyzers
-# - ConfigureAwait.Fody (auto-configured via Fody)
+# - Microsoft.CodeAnalysis.NetAnalyzers (API usage, performance, security)
+# - Microsoft.VisualStudio.Threading.Analyzers (threading safety)
+# - StyleCop.Analyzers (code style consistency, ~300 rules)
+# - SonarAnalyzer.CSharp (code quality, bugs, code smells)
+# - Roslynator (C# best practices, 500+ analyzers)
+# - SecurityCodeScan (security vulnerabilities: XSS, SQL injection, etc.)
+# - ConfigureAwait.Fody (auto-configured via Fody IL weaving)
+
+# View all analyzer diagnostics
+dotnet build --verbosity normal | grep -E "warning|error"
 ```
+
+### Git Hooks
+
+The project uses Husky.Net for automatic code quality fixes on commit:
+
+```bash
+# Install/reinstall git hooks (run once after cloning)
+dotnet tool restore
+dotnet husky install
+
+# Pre-commit hook automatically performs (in order):
+# 1. Fix auto-fixable analyzer diagnostics (unused usings, simplify expressions, etc.)
+# 2. Fix code style issues (IDE* rules)
+# 3. Format code with CSharpier
+# Only staged C# files are processed - fast and non-intrusive!
+
+# Skip hooks if needed (use sparingly for emergency commits)
+git commit --no-verify -m "message"
+```
+
+**What gets auto-fixed:**
+- Unused using directives
+- Unnecessary code (unused variables, redundant casts, etc.)
+- Simplifiable expressions (use pattern matching, collection expressions, etc.)
+- Code style violations (var usage, expression bodies, etc.)
+- Formatting (indentation, spacing, line breaks)
 
 ## Architecture Overview
 

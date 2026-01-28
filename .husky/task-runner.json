@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "name": "dotnet-format-analyzers",
+      "command": "dotnet",
+      "args": ["format", "analyzers", "src/Tasky.sln", "--include", "${staged}", "--no-restore", "--verbosity", "quiet"],
+      "include": ["**/*.cs"]
+    },
+    {
+      "name": "dotnet-format-style",
+      "command": "dotnet",
+      "args": ["format", "style", "src/Tasky.sln", "--include", "${staged}", "--no-restore", "--verbosity", "quiet"],
+      "include": ["**/*.cs"]
+    },
+    {
+      "name": "csharpier-format",
+      "command": "dotnet",
+      "args": ["csharpier", "${staged}"],
+      "include": ["**/*.cs"]
+    }
+  ]
+}
