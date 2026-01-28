@@ -23,6 +23,7 @@ public class AdministrationDbContext(DbContextOptions<AdministrationDbContext> o
         ISettingManagementDbContext
 {
     public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<AuditLogExcelFile> AuditLogExcelFiles { get; set; }
     public DbSet<FeatureDefinitionRecord> Features { get; set; }
     public DbSet<FeatureGroupDefinitionRecord> FeatureGroups { get; set; }
     public DbSet<FeatureValue> FeatureValues { get; set; }

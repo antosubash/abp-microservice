@@ -1,26 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <RootNamespace>Tasky.Administration</RootNamespace>
-        <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Volo.Abp.AuditLogging.Domain.Shared" Version="9.1.3" />
-        <PackageReference Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="9.1.3" />
-        <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Shared" Version="9.1.3" />
-        <PackageReference Include="Volo.Abp.SettingManagement.Domain.Shared" Version="9.1.3" />
-        <PackageReference Include="Volo.Abp.Validation" Version="9.1.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="9.0.5" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Include="Localization\Administration\*.json" />
-        <Content Remove="Localization\Administration\*.json" />
-    </ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Tasky.Administration</RootNamespace>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AuditLogging.Domain.Shared" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Shared" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Domain.Shared" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.Validation" Version="10.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="10.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\Administration\*.json" />
+    <Content Remove="Localization\Administration\*.json" />
+  </ItemGroup>
+</Project>

@@ -1,16 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Tasky.Projects</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Tasky.Projects.Application\Tasky.Projects.Application.csproj" />
     <ProjectReference Include="..\Tasky.Projects.Domain.Tests\Tasky.Projects.Domain.Tests.csproj" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
   </ItemGroup>
-
 </Project>

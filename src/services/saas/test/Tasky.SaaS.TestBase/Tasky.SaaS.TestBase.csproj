@@ -1,12 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Tasky.SaaS</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageReference Include="NSubstitute" Version="5.3.0" />
@@ -17,10 +13,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Volo.Abp.Autofac" Version="9.1.3" />
-    <PackageReference Include="Volo.Abp.Authorization" Version="9.1.3" />
-    <PackageReference Include="Volo.Abp.TestBase" Version="9.1.3" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.Authorization" Version="10.0.2" />
+    <PackageReference Include="Volo.Abp.TestBase" Version="10.0.2" />
     <ProjectReference Include="..\..\src\Tasky.SaaS.Domain\Tasky.SaaS.Domain.csproj" />
   </ItemGroup>
-
 </Project>

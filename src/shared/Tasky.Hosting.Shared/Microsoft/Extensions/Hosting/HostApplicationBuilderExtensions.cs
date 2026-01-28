@@ -6,13 +6,8 @@ public static class HostApplicationBuilderExtensions
 {
     public static IHostApplicationBuilder AddSharedEndpoints(this IHostApplicationBuilder builder)
     {
-        builder.AddRabbitMQClient(
-            connectionName: TaskyNames.RabbitMq,
-            action =>
-                action.ConnectionString = builder.Configuration.GetConnectionString(
-                    TaskyNames.RabbitMq
-                )
-        );
+        // RabbitMQ client is configured through ABP's RabbitMQ integration (Volo.Abp.RabbitMQ)
+        // No need for Aspire.RabbitMQ.Client as ABP handles RabbitMQ connections
         builder.AddRedisDistributedCache(connectionName: TaskyNames.Redis);
         builder.AddSeqEndpoint(connectionName: TaskyNames.Seq);
 

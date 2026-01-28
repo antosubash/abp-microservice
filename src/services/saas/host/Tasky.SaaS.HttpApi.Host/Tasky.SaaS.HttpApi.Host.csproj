@@ -1,26 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <RootNamespace>Tasky.SaaS</RootNamespace>
-        <PreserveCompilationReferences>true</PreserveCompilationReferences>
-        <UserSecretsId>Tasky.SaaS-c2d31439-b723-48e2-b061-5ebd7aeb6010</UserSecretsId>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <DockerfileContext>..\..\..\..</DockerfileContext>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-        <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="9.1.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\..\..\shared\Tasky.Microservice.Shared\Tasky.Microservice.Shared.csproj" />
-        <ProjectReference Include="..\..\..\..\shared\Tasky.ServiceDefaults\Tasky.ServiceDefaults.csproj" />
-        <ProjectReference Include="..\..\..\administration\src\Tasky.Administration.EntityFrameworkCore\Tasky.Administration.EntityFrameworkCore.csproj" />
-        <ProjectReference Include="..\..\src\Tasky.SaaS.HttpApi\Tasky.SaaS.HttpApi.csproj" />
-        <ProjectReference Include="..\..\src\Tasky.SaaS.Application\Tasky.SaaS.Application.csproj" />
-        <ProjectReference Include="..\..\src\Tasky.SaaS.EntityFrameworkCore\Tasky.SaaS.EntityFrameworkCore.csproj" />
-    </ItemGroup>
-
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Tasky.SaaS</RootNamespace>
+    <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <UserSecretsId>Tasky.SaaS-c2d31439-b723-48e2-b061-5ebd7aeb6010</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference
+      Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets"
+      Version="1.21.0"
+    />
+    <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="10.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\shared\Tasky.Microservice.Shared\Tasky.Microservice.Shared.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\Tasky.ServiceDefaults\Tasky.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\..\administration\src\Tasky.Administration.EntityFrameworkCore\Tasky.Administration.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\..\src\Tasky.SaaS.HttpApi\Tasky.SaaS.HttpApi.csproj" />
+    <ProjectReference Include="..\..\src\Tasky.SaaS.Application\Tasky.SaaS.Application.csproj" />
+    <ProjectReference Include="..\..\src\Tasky.SaaS.EntityFrameworkCore\Tasky.SaaS.EntityFrameworkCore.csproj" />
+  </ItemGroup>
 </Project>
