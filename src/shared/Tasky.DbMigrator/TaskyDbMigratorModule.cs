@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Tasky.Administration;
 using Tasky.Administration.EntityFrameworkCore;
 using Tasky.IdentityService;

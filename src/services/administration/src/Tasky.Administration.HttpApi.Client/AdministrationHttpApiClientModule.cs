@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Http.Client;
@@ -17,6 +18,8 @@ public class AdministrationHttpApiClientModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         context.Services.AddHttpClientProxies(
             typeof(AdministrationApplicationContractsModule).Assembly,
             AdministrationRemoteServiceConsts.RemoteServiceName

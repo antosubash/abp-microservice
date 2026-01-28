@@ -43,12 +43,12 @@ public class IdentityServiceDbContext(DbContextOptions<IdentityServiceDbContext>
 
     public DbSet<IdentitySession> Sessions { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
 
-        builder.ConfigureIdentityService();
-        builder.ConfigureIdentity();
-        builder.ConfigureOpenIddict();
+        modelBuilder.ConfigureIdentityService();
+        modelBuilder.ConfigureIdentity();
+        modelBuilder.ConfigureOpenIddict();
     }
 }

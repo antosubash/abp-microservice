@@ -31,7 +31,6 @@ internal static class Program
 
         app.MapStaticAssets();
 
-        // app.UseAntiforgery();
         app.MapRazorComponents<App>()
             .AddInteractiveWebAssemblyRenderMode()
             .AddAdditionalAssemblies(WebAppAdditionalAssembliesHelper.GetAssemblies<WebAppBlazorClientModule>());

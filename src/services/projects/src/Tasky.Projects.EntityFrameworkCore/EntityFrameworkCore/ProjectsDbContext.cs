@@ -10,10 +10,10 @@ public class ProjectsDbContext(DbContextOptions<ProjectsDbContext> options)
     : AbpDbContext<ProjectsDbContext>(options),
         IProjectsDbContext
 {
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
 
-        builder.ConfigureProjects();
+        modelBuilder.ConfigureProjects();
     }
 }

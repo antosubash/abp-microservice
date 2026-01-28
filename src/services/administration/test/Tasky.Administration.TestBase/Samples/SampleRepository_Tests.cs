@@ -10,12 +10,6 @@ namespace Tasky.Administration.Samples;
 public abstract class SampleRepository_Tests<TStartupModule> : AdministrationTestBase<TStartupModule>
     where TStartupModule : IAbpModule
 {
-    // private readonly ISampleRepository _sampleRepository;
-    protected SampleRepository_Tests()
-    {
-        // _sampleRepository = GetRequiredService<ISampleRepository>();
-    }
-
     [Fact]
     public void Method1()
     {

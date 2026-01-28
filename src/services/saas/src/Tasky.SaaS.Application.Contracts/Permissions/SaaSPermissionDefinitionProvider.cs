@@ -1,4 +1,5 @@
-﻿using Tasky.SaaS.Localization;
+﻿using System;
+using Tasky.SaaS.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
@@ -8,6 +9,8 @@ public class SaaSPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         var saasGroup = context.AddGroup(SaaSPermissions.GroupName, L("Permission:SaaS"));
 
         var tenantsPermission = saasGroup.AddPermission(SaaSPermissions.Tenants.Default, L("Permission:SaaS:Tenants"));

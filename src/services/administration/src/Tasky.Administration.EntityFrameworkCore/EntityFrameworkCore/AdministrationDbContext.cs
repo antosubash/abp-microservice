@@ -42,14 +42,14 @@ public class AdministrationDbContext(DbContextOptions<AdministrationDbContext> o
 
     public DbSet<SettingDefinitionRecord> SettingDefinitionRecords { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
 
-        builder.ConfigureAdministration();
-        builder.ConfigureAuditLogging();
-        builder.ConfigureFeatureManagement();
-        builder.ConfigurePermissionManagement();
-        builder.ConfigureSettingManagement();
+        modelBuilder.ConfigureAdministration();
+        modelBuilder.ConfigureAuditLogging();
+        modelBuilder.ConfigureFeatureManagement();
+        modelBuilder.ConfigurePermissionManagement();
+        modelBuilder.ConfigureSettingManagement();
     }
 }

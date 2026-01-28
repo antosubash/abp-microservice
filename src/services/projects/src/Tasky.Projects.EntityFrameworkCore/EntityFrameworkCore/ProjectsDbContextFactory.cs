@@ -9,8 +9,6 @@ public class ProjectsDbContextFactory : IDesignTimeDbContextFactory<ProjectsDbCo
 {
     public ProjectsDbContext CreateDbContext(string[] args)
     {
-        var configuration = BuildConfiguration();
-
         var builder = new DbContextOptionsBuilder<ProjectsDbContext>().UseNpgsql(
             GetConnectionStringFromConfiguration()
         );

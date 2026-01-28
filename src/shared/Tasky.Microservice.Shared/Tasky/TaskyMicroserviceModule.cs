@@ -26,7 +26,6 @@ public class TaskyMicroserviceModule : AbpModule
     {
         var configuration = context.Services.GetConfiguration();
 
-        // var hostingEnvironment = context.Services.GetHostingEnvironment();
         ConfigureCors(context, configuration);
     }
 

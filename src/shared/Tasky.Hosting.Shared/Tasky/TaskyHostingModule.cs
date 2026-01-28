@@ -41,8 +41,9 @@ public class TaskyHostingModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         var configuration = context.Services.GetConfiguration();
-        var hostingEnvironment = context.Services.GetHostingEnvironment();
 
         ConfigureDistributedLocking(context, configuration);
 
@@ -111,6 +112,8 @@ public static class HostingExtensions
         string name
     )
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName(TaskyNames.Tasky);
         if (!hostingEnvironment.IsDevelopment())
         {

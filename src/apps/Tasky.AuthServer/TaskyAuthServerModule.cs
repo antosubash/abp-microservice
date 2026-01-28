@@ -61,7 +61,8 @@ public class TaskyAuthServerModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        var hostingEnvironment = context.Services.GetHostingEnvironment();
+        ArgumentNullException.ThrowIfNull(context);
+
         var configuration = context.Services.GetConfiguration();
 
         Configure<AbpBundlingOptions>(options =>
@@ -72,11 +73,7 @@ public class TaskyAuthServerModule : AbpModule
             );
         });
 
-        Configure<AbpAuditingOptions>(options =>
-        {
-            // options.IsEnabledForGetRequests = true;
-            options.ApplicationName = "AuthServer";
-        });
+        Configure<AbpAuditingOptions>(options => options.ApplicationName = "AuthServer");
 
         Configure<AppUrlOptions>(options =>
         {

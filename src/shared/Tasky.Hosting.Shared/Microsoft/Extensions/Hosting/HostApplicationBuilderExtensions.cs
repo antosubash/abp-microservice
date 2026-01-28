@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Microsoft.Extensions.Hosting;
+﻿namespace Microsoft.Extensions.Hosting;
 
 public static class HostApplicationBuilderExtensions
 {

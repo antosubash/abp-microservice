@@ -43,7 +43,7 @@ public class TenantCreatedEventHandler(
         }
     }
 
-    private Task HandleErrorTenantCreatedAsync(TenantCreatedEto eventData, Exception ex)
+    private static Task HandleErrorTenantCreatedAsync(TenantCreatedEto eventData, Exception ex)
     {
         throw new NotImplementedException();
     }

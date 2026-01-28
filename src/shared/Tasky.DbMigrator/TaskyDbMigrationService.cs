@@ -177,7 +177,6 @@ public class TaskyDbMigrationService(
         await MigrateDatabaseAsync<IdentityServiceDbContext>(cancellationToken).ConfigureAwait(false);
         await MigrateDatabaseAsync<ProjectsDbContext>(cancellationToken).ConfigureAwait(false);
 
-        // await MigrateDatabaseAsync<WebAppDbContext>(cancellationToken);
         await uow.CompleteAsync(cancellationToken).ConfigureAwait(false);
     }
 

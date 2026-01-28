@@ -2,7 +2,7 @@
 
 namespace Tasky.Administration.Permissions;
 
-public class AdministrationPermissions
+public static class AdministrationPermissions
 {
     public const string GroupName = "Administration";
 

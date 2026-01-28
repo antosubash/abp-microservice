@@ -1,4 +1,5 @@
-﻿using Tasky.Projects.Localization;
+﻿using System;
+using Tasky.Projects.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
@@ -8,6 +9,8 @@ public class ProjectsPermissionDefinitionProvider : PermissionDefinitionProvider
 {
     public override void Define(IPermissionDefinitionContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         var projectsGroup = context.AddGroup(ProjectsPermissions.GroupName, L("Permission:Projects"));
         var projectsPermissions = projectsGroup.AddPermission(
             ProjectsPermissions.Issues.Default,

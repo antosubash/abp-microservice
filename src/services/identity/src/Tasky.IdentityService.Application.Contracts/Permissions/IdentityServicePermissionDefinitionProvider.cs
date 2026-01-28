@@ -1,4 +1,5 @@
-﻿using Tasky.IdentityService.Localization;
+﻿using System;
+using Tasky.IdentityService.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
@@ -8,6 +9,8 @@ public class IdentityServicePermissionDefinitionProvider : PermissionDefinitionP
 {
     public override void Define(IPermissionDefinitionContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         var identityGroup = context.AddGroup(IdentityServicePermissions.GroupName, L("Permission:IdentityService"));
         var userPermissions = identityGroup.AddPermission(
             IdentityServicePermissions.Users.Default,

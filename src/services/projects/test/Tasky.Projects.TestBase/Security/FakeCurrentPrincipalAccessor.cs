@@ -7,18 +7,19 @@ namespace Tasky.Projects.Security;
 [Dependency(ReplaceServices = true)]
 public class FakeCurrentPrincipalAccessor : ThreadCurrentPrincipalAccessor
 {
+    private readonly object _syncLock = new();
+    private ClaimsPrincipal _principal;
+
     protected override ClaimsPrincipal GetClaimsPrincipal()
     {
         return GetPrincipal();
     }
 
-    private ClaimsPrincipal _principal;
-
     private ClaimsPrincipal GetPrincipal()
     {
         if (_principal == null)
         {
-            lock (this)
+            lock (_syncLock)
             {
                 if (_principal == null)
                 {
