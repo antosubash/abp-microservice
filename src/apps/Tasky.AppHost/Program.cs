@@ -43,6 +43,8 @@ internal class Program
             .WithReference(rabbitMq)
             .WithReference(redis)
             .WithReference(seq)
+            .WaitFor(rabbitMq)
+            .WaitFor(redis)
             .WaitForCompletion(migrator);
 
         var identity = builder
@@ -57,6 +59,8 @@ internal class Program
             .WithReference(rabbitMq)
             .WithReference(redis)
             .WithReference(seq)
+            .WaitFor(rabbitMq)
+            .WaitFor(redis)
             .WaitForCompletion(migrator);
 
         var saas = builder
@@ -70,6 +74,8 @@ internal class Program
             .WithReference(rabbitMq)
             .WithReference(redis)
             .WithReference(seq)
+            .WaitFor(rabbitMq)
+            .WaitFor(redis)
             .WaitForCompletion(migrator);
 
         builder
@@ -83,6 +89,8 @@ internal class Program
             .WithReference(rabbitMq)
             .WithReference(redis)
             .WithReference(seq)
+            .WaitFor(rabbitMq)
+            .WaitFor(redis)
             .WaitForCompletion(migrator);
 
         var gateway = builder
@@ -105,6 +113,8 @@ internal class Program
             .WithReference(rabbitMq)
             .WithReference(redis)
             .WithReference(seq)
+            .WaitFor(rabbitMq)
+            .WaitFor(redis)
             .WaitForCompletion(migrator);
 
         builder
