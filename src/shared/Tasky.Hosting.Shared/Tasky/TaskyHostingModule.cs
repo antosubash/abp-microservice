@@ -16,10 +16,13 @@ using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Data;
 using Volo.Abp.DistributedLocking;
 using Volo.Abp.EventBus.RabbitMq;
+using Volo.Abp.FeatureManagement;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.RabbitMQ;
+using Volo.Abp.SettingManagement;
 using Volo.Abp.Swashbuckle;
 
 namespace Tasky;
@@ -46,6 +49,22 @@ public class TaskyHostingModule : AbpModule
         Configure<AbpMultiTenancyOptions>(options =>
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
+        });
+
+        // Disable dynamic initializers to prevent race conditions when multiple services share the same database
+        Configure<PermissionManagementOptions>(options =>
+        {
+            options.IsDynamicPermissionStoreEnabled = false;
+        });
+
+        Configure<FeatureManagementOptions>(options =>
+        {
+            options.IsDynamicFeatureStoreEnabled = false;
+        });
+
+        Configure<SettingManagementOptions>(options =>
+        {
+            options.IsDynamicSettingStoreEnabled = false;
         });
 
         Configure<AbpLocalizationOptions>(options =>
