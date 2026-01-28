@@ -10,7 +10,7 @@
 - Added `EnforceCodeStyleInBuild=true` to run IDE analyzers during build
 - Added 4 new analyzer packages:
   - StyleCop.Analyzers 1.2.0-beta.556 (~300 code style rules)
-  - SonarAnalyzer.CSharp 10.3.0 (code quality, bugs, code smells)
+  - SonarAnalyzer.CSharp 10.3.0.106239 (code quality, bugs, code smells)
   - Roslynator.Analyzers 4.12.11 (500+ C# best practices)
   - SecurityCodeScan.VS2019 5.6.7 (security vulnerability detection)
 - Added StyleCop configuration reference
@@ -79,7 +79,7 @@
 ### Build Status
 ✅ Solution builds successfully with all analyzers enabled
 ✅ No build-blocking errors introduced
-✅ NU1603 warnings (SonarAnalyzer version resolution) are harmless
+✅ No NU1603 warnings (SonarAnalyzer version correctly specified)
 
 ### Formatting Test
 ✅ CSharpier formatted 12 files in Tasky.Shared (120ms)
