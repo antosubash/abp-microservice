@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,13 +7,11 @@
     <IsAspireHost>true</IsAspireHost>
     <UserSecretsId>0aae16e2-bc34-40f6-b9c4-10379cc46b10</UserSecretsId>
   </PropertyGroup>
-  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.2" />
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.2" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.5.2" />
-    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="9.5.2" />
-    <PackageReference Include="Aspire.Hosting.Redis" Version="9.5.2" />
-    <PackageReference Include="Aspire.Hosting.Seq" Version="9.5.2" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.Seq" Version="13.1.0" />
     <PackageReference Include="IdentityModel" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -25,9 +23,6 @@
     <ProjectReference Include="..\..\services\saas\host\Tasky.SaaS.HttpApi.Host\Tasky.SaaS.HttpApi.Host.csproj" />
     <ProjectReference Include="..\Tasky.WebApp\src\Tasky.WebApp.Blazor\Tasky.WebApp.Blazor.csproj" />
     <ProjectReference Include="..\..\shared\Tasky.DbMigrator\Tasky.DbMigrator.csproj" />
-    <ProjectReference
-      Include="..\..\shared\Tasky.Shared\Tasky.Shared.csproj"
-      IsAspireProjectResource="false"
-    />
+    <ProjectReference Include="..\..\shared\Tasky.Shared\Tasky.Shared.csproj" IsAspireProjectResource="false" />
   </ItemGroup>
 </Project>
