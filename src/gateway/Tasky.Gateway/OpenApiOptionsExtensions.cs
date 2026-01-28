@@ -25,7 +25,7 @@ public static class OpenApiOptionsExtensions
             (document, context, cancellationToken) =>
             {
                 document.Components ??= new();
-                document.Components.SecuritySchemes.Add(
+                document.Components.SecuritySchemes!.Add(
                     JwtBearerDefaults.AuthenticationScheme,
                     securityScheme
                 );

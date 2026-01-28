@@ -1,0 +1,65 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Task",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
+  },
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Filesystem operations"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@anthropic-ai/mcp-server-context7"],
+      "description": "Context7 MCP server"
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-browser"],
+      "description": "Browser MCP server"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "@chromedevtools/mcp-server-chrome-devtools"],
+      "description": "Chrome DevTools MCP server"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"],
+      "description": "Playwright MCP server"
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "description": "Memory MCP server"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Sequential thinking MCP server"
+    },
+    "magic": {
+      "command": "npx",
+      "args": ["-y", "@magicuidesign/mcp@latest"],
+      "description": "Magic UI components MCP server"
+    }
+  },
+  "quickCommands": []
+}

@@ -257,3 +257,4 @@ src/**/Logs/
 
 # Use abp install-libs to restore.
 src/**/wwwroot/libs/*
+src/nul
