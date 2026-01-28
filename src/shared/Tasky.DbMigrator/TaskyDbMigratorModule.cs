@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Tasky.Administration;
 using Tasky.Administration.EntityFrameworkCore;
 using Tasky.IdentityService;
@@ -34,21 +35,24 @@ public class TaskyDbMigratorModule : AbpModule
     {
         Configure<AbpBackgroundJobOptions>(options => options.IsJobExecutionEnabled = false);
         Configure<TokenCleanupOptions>(options => options.IsCleanupEnabled = false);
+    }
 
-        // Enable dynamic initializers in DbMigrator to seed permissions, features, and settings
-        Configure<PermissionManagementOptions>(options =>
+    public override void PostConfigureServices(ServiceConfigurationContext context)
+    {
+        // PostConfigure runs AFTER all other Configure calls, ensuring our settings override everything
+        context.Services.PostConfigure<PermissionManagementOptions>(options =>
         {
-            options.IsDynamicPermissionStoreEnabled = true;
+            options.IsDynamicPermissionStoreEnabled = false;
         });
 
-        Configure<FeatureManagementOptions>(options =>
+        context.Services.PostConfigure<FeatureManagementOptions>(options =>
         {
-            options.IsDynamicFeatureStoreEnabled = true;
+            options.IsDynamicFeatureStoreEnabled = false;
         });
 
-        Configure<SettingManagementOptions>(options =>
+        context.Services.PostConfigure<SettingManagementOptions>(options =>
         {
-            options.IsDynamicSettingStoreEnabled = true;
+            options.IsDynamicSettingStoreEnabled = false;
         });
     }
 }

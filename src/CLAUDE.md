@@ -85,6 +85,46 @@ cd services/administration/src/Tasky.Administration.EntityFrameworkCore
 dotnet ef migrations add MigrationName
 ```
 
+### Database Reset (Development Only)
+
+**Recommended: Using Aspire Dashboard**
+
+When running the application with Aspire (`cd apps/Tasky.AppHost && dotnet run`):
+
+1. Open the Aspire Dashboard (typically http://localhost:15888)
+2. Navigate to the "Tasky-DbMigrator" resource
+3. Click the **"Reset Databases"** button in the resource commands section
+4. The command will drop and recreate all databases with fresh migrations
+
+This custom command is configured in `apps/Tasky.AppHost/Program.cs` and provides visual feedback in the dashboard.
+
+**Alternative: Manual Script Execution**
+
+```bash
+# On Windows (PowerShell)
+.\reset-databases.ps1
+
+# On Linux/macOS
+chmod +x reset-databases.sh
+./reset-databases.sh
+
+# Manual reset (set environment variable directly)
+cd shared/Tasky.DbMigrator
+$env:RESET_DATABASES="true"  # PowerShell
+# or
+export RESET_DATABASES=true  # Bash
+dotnet run
+```
+
+**What the reset does:**
+- Drops all four databases (Administration, Identity, Projects, SaaS)
+- Recreates databases with fresh schema from migrations
+- Seeds permissions, features, and settings
+- Creates default admin user: `admin` / `1q2w3E*`
+- Seeds OpenIddict OAuth2 clients
+
+**WARNING:** This permanently deletes ALL data in all databases!
+
 ### Code Analysis
 
 ```bash

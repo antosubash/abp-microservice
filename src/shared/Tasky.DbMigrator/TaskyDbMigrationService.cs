@@ -25,12 +25,33 @@ public class TaskyDbMigrationService(
 {
     public async Task MigrateAsync(CancellationToken cancellationToken)
     {
+        // Check if we should reset (drop and recreate) databases
+        var resetDatabases = Environment.GetEnvironmentVariable("RESET_DATABASES");
+        if (resetDatabases?.Equals("true", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            logger.LogWarning("RESET_DATABASES flag detected. Dropping all databases...");
+            await DropDatabasesAsync(cancellationToken);
+            logger.LogInformation("All databases dropped successfully.");
+        }
+
         await CreateDatabasesAsync(cancellationToken);
 
         logger.LogInformation("Starting Migrations ...");
         await MigrateHostAsync(cancellationToken);
         await MigrateTenantsAsync(cancellationToken);
         logger.LogInformation("Completed Migrations.");
+    }
+
+    private async Task DropDatabasesAsync(CancellationToken cancellationToken)
+    {
+        using var uow = unitOfWorkManager.Begin(true);
+
+        await DropDatabaseAsync<SaaSDbContext>(cancellationToken);
+        await DropDatabaseAsync<AdministrationDbContext>(cancellationToken);
+        await DropDatabaseAsync<IdentityServiceDbContext>(cancellationToken);
+        await DropDatabaseAsync<ProjectsDbContext>(cancellationToken);
+
+        await uow.CompleteAsync(cancellationToken);
     }
 
     private async Task CreateDatabasesAsync(CancellationToken cancellationToken)
@@ -90,6 +111,33 @@ public class TaskyDbMigrationService(
         }
 
         logger.LogInformation("Tenant migrations are complete.");
+    }
+
+    private async Task DropDatabaseAsync<TDbContext>(CancellationToken cancellationToken)
+        where TDbContext : DbContext, IEfCoreDbContext
+    {
+        var name = typeof(TDbContext).Name.RemovePostFix("DbContext");
+        logger.LogInformation("Dropping {Name} database ...", name);
+
+        var dbContext = await unitOfWorkManager
+            .Current!.ServiceProvider.GetRequiredService<IDbContextProvider<TDbContext>>()
+            .GetDbContextAsync();
+
+        var strategy = dbContext.Database.CreateExecutionStrategy();
+        var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
+
+        await strategy.ExecuteAsync(async () =>
+        {
+            if (await dbCreator.ExistsAsync(cancellationToken))
+            {
+                await dbCreator.DeleteAsync(cancellationToken);
+                logger.LogInformation("Dropped {Name} database.", name);
+            }
+            else
+            {
+                logger.LogInformation("{Name} database does not exist, skipping drop.", name);
+            }
+        });
     }
 
     private async Task EnsureDatabaseAsync<TDbContext>(CancellationToken cancellationToken)
