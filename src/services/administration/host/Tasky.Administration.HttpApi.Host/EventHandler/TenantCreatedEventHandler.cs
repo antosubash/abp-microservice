@@ -28,11 +28,12 @@ public class TenantCreatedEventHandler(
 
     public async Task HandleEventAsync(TenantCreatedEto eventData)
     {
+        ArgumentNullException.ThrowIfNull(eventData);
         try
         {
             await SeedDataAsync(eventData.Id).ConfigureAwait(false);
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             await HandleErrorTenantCreatedAsync(eventData, ex).ConfigureAwait(false);
         }

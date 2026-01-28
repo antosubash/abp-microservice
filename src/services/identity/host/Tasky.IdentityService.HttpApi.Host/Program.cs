@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +44,7 @@ public static class Program
             await app.RunAsync().ConfigureAwait(false);
             return 0;
         }
-        catch (Exception ex)
+        catch (OperationCanceledException ex)
         {
             Log.Fatal(ex, "Host terminated unexpectedly!");
             return 1;

@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,7 @@ public class SaaSHttpApiHostModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
         var hostingEnvironment = context.Services.GetHostingEnvironment();
 
         context.ConfigureMicroservice(TaskyNames.SaaSApi);

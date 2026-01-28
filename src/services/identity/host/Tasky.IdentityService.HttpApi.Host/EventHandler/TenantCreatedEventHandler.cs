@@ -21,6 +21,7 @@ public class TenantCreatedEventHandler(
 
     public async Task HandleEventAsync(TenantCreatedEto eventData)
     {
+        ArgumentNullException.ThrowIfNull(eventData);
         try
         {
             using (_currentTenant.Change(eventData.Id))
@@ -37,7 +38,7 @@ public class TenantCreatedEventHandler(
                     .ConfigureAwait(false);
             }
         }
-        catch (Exception ex)
+        catch (InvalidOperationException ex)
         {
             await HandleErrorTenantCreatedAsync(eventData, ex).ConfigureAwait(false);
         }

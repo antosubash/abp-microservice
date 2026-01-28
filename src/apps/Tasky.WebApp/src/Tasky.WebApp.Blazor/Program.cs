@@ -7,6 +7,8 @@ using Tasky.WebApp.Blazor;
 using Tasky.WebApp.Blazor.Client;
 using Volo.Abp.AspNetCore.Components.WebAssembly.WebApp;
 
+namespace Tasky.WebApp.Blazor;
+
 internal static class Program
 {
     private static Task Main(string[] args)

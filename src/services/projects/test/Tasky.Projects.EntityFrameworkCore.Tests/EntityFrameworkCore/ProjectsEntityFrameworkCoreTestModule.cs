@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -16,6 +17,7 @@ public class ProjectsEntityFrameworkCoreTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
         var sqliteConnection = CreateDatabaseAndGetConnection();
 
         Configure<AbpDbContextOptions>(options =>
