@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -16,14 +17,14 @@ public class ProjectsEntityFrameworkCoreTestModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
         var sqliteConnection = CreateDatabaseAndGetConnection();
 
         Configure<AbpDbContextOptions>(options =>
         {
             options.Configure(abpDbContextConfigurationContext =>
-            {
-                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
-            });
+                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection)
+            );
         });
 
         context.Services.AddAlwaysDisableUnitOfWorkTransaction();
@@ -34,9 +35,7 @@ public class ProjectsEntityFrameworkCoreTestModule : AbpModule
         var connection = new SqliteConnection("Data Source=:memory:");
         connection.Open();
 
-        new ProjectsDbContext(
-            new DbContextOptionsBuilder<ProjectsDbContext>().UseSqlite(connection).Options
-        )
+        new ProjectsDbContext(new DbContextOptionsBuilder<ProjectsDbContext>().UseSqlite(connection).Options)
             .GetService<IRelationalDatabaseCreator>()
             .CreateTables();
 

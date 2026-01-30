@@ -9,7 +9,7 @@ using Tasky.Projects.EntityFrameworkCore;
 
 namespace Tasky.Projects;
 
-public class Program
+public static class Program
 {
     public static async Task<int> Main(string[] args)
     {
@@ -34,13 +34,13 @@ public class Program
 
             builder.Host.AddAppSettingsSecretsJson().UseAutofac().UseSerilog();
 
-            await builder.AddApplicationAsync<ProjectsHttpApiHostModule>();
+            await builder.AddApplicationAsync<ProjectsHttpApiHostModule>().ConfigureAwait(false);
 
             var app = builder.Build();
 
-            await app.InitializeApplicationAsync();
+            await app.InitializeApplicationAsync().ConfigureAwait(false);
 
-            await app.RunAsync();
+            await app.RunAsync().ConfigureAwait(false);
 
             return 0;
         }
@@ -51,7 +51,7 @@ public class Program
         }
         finally
         {
-            Log.CloseAndFlush();
+            await Log.CloseAndFlushAsync().ConfigureAwait(false);
         }
     }
 }

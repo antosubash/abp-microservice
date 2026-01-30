@@ -17,24 +17,16 @@ public class SaaSEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         Configure<AbpDbConnectionOptions>(options =>
-        {
-            options.Databases.Configure(
-                TaskyNames.SaaSDb,
-                db =>
-                {
-                    db.MappedConnections.Add("AbpTenantManagement");
-                }
-            );
-        });
+            options.Databases.Configure(TaskyNames.SaaSDb, db => db.MappedConnections.Add("AbpTenantManagement"))
+        );
 
-        Configure<AbpDbContextOptions>(options =>
-        {
-            options.UseNpgsql();
-        });
+        Configure<AbpDbContextOptions>(options => options.UseNpgsql());
 
         context.Services.AddAbpDbContext<SaaSDbContext>(options =>
         {

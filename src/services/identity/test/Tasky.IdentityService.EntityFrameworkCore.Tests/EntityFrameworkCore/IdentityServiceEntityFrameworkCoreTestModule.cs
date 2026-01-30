@@ -21,9 +21,8 @@ public class IdentityServiceEntityFrameworkCoreTestModule : AbpModule
         Configure<AbpDbContextOptions>(options =>
         {
             options.Configure(abpDbContextConfigurationContext =>
-            {
-                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection);
-            });
+                abpDbContextConfigurationContext.DbContextOptions.UseSqlite(sqliteConnection)
+            );
         });
 
         context.Services.AddAlwaysDisableUnitOfWorkTransaction();

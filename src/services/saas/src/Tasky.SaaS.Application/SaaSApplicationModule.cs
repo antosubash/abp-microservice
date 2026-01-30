@@ -18,9 +18,6 @@ public class SaaSApplicationModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.AddAutoMapperObjectMapper<SaaSApplicationModule>();
-        Configure<AbpAutoMapperOptions>(options =>
-        {
-            options.AddMaps<SaaSApplicationModule>(true);
-        });
+        Configure<AbpAutoMapperOptions>(options => options.AddMaps<SaaSApplicationModule>(true));
     }
 }

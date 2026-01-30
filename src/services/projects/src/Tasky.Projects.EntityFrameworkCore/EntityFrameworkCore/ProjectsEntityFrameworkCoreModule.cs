@@ -15,22 +15,15 @@ public class ProjectsEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-        Configure<AbpDbConnectionOptions>(options =>
-        {
-            options.Databases.Configure(TaskyNames.ProjectsDb, db => { });
-        });
+        Configure<AbpDbConnectionOptions>(options => options.Databases.Configure(TaskyNames.ProjectsDb, db => { }));
 
-        Configure<AbpDbContextOptions>(options =>
-        {
-            options.UseNpgsql();
-        });
+        Configure<AbpDbContextOptions>(options => options.UseNpgsql());
 
-        context.Services.AddAbpDbContext<ProjectsDbContext>(options =>
-        {
-            options.AddDefaultRepositories(true);
-        });
+        context.Services.AddAbpDbContext<ProjectsDbContext>(options => options.AddDefaultRepositories(true));
     }
 }

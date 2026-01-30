@@ -18,8 +18,7 @@ public class AdministrationDbContextFactory : IDesignTimeDbContextFactory<Admini
 
     private static string GetConnectionStringFromConfiguration()
     {
-        return BuildConfiguration()
-            .GetConnectionString(AdministrationDbProperties.ConnectionStringName);
+        return BuildConfiguration().GetConnectionString(AdministrationDbProperties.ConnectionStringName);
     }
 
     private static IConfigurationRoot BuildConfiguration()

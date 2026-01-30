@@ -23,23 +23,33 @@ public class AdministrationDbContext(DbContextOptions<AdministrationDbContext> o
         ISettingManagementDbContext
 {
     public DbSet<AuditLog> AuditLogs { get; set; }
+
+    public DbSet<AuditLogExcelFile> AuditLogExcelFiles { get; set; }
+
     public DbSet<FeatureDefinitionRecord> Features { get; set; }
+
     public DbSet<FeatureGroupDefinitionRecord> FeatureGroups { get; set; }
+
     public DbSet<FeatureValue> FeatureValues { get; set; }
+
     public DbSet<PermissionDefinitionRecord> Permissions { get; set; }
+
     public DbSet<PermissionGrant> PermissionGrants { get; set; }
+
     public DbSet<PermissionGroupDefinitionRecord> PermissionGroups { get; set; }
+
     public DbSet<Setting> Settings { get; set; }
+
     public DbSet<SettingDefinitionRecord> SettingDefinitionRecords { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
 
-        builder.ConfigureAdministration();
-        builder.ConfigureAuditLogging();
-        builder.ConfigureFeatureManagement();
-        builder.ConfigurePermissionManagement();
-        builder.ConfigureSettingManagement();
+        modelBuilder.ConfigureAdministration();
+        modelBuilder.ConfigureAuditLogging();
+        modelBuilder.ConfigureFeatureManagement();
+        modelBuilder.ConfigurePermissionManagement();
+        modelBuilder.ConfigureSettingManagement();
     }
 }

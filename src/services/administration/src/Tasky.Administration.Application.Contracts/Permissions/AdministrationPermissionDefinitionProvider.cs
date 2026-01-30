@@ -1,4 +1,5 @@
-﻿using Tasky.Administration.Localization;
+﻿using System;
+using Tasky.Administration.Localization;
 using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Localization;
 
@@ -8,10 +9,9 @@ public class AdministrationPermissionDefinitionProvider : PermissionDefinitionPr
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var administrationGroup = context.AddGroup(
-            AdministrationPermissions.GroupName,
-            L("Permission:Administration")
-        );
+        ArgumentNullException.ThrowIfNull(context);
+
+        var administrationGroup = context.AddGroup(AdministrationPermissions.GroupName, L("Permission:Administration"));
         var settingsPermissions = administrationGroup.AddPermission(
             AdministrationPermissions.Settings.Default,
             L("Permission:Administration:Settings")

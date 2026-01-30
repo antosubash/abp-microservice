@@ -1,0 +1,8 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Auto-fix analyzers, style issues, and format staged C# files
+# 1. Fix auto-fixable analyzer diagnostics (Roslynator, SonarAnalyzer, etc.)
+# 2. Fix code style issues (IDE* rules)
+# 3. Format code with CSharpier
+dotnet husky run

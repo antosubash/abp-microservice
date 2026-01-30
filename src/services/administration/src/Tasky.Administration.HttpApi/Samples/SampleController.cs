@@ -8,23 +8,21 @@ namespace Tasky.Administration.Samples;
 [Area(AdministrationRemoteServiceConsts.ModuleName)]
 [RemoteService(Name = AdministrationRemoteServiceConsts.RemoteServiceName)]
 [Route("api/Administration/sample")]
-public class SampleController(ISampleAppService sampleAppService)
-    : AdministrationController,
-        ISampleAppService
+public class SampleController(ISampleAppService sampleAppService) : AdministrationController, ISampleAppService
 {
     private readonly ISampleAppService _sampleAppService = sampleAppService;
 
     [HttpGet]
-    public async Task<SampleDto> GetAsync()
+    public Task<SampleDto> GetAsync()
     {
-        return await _sampleAppService.GetAsync();
+        return _sampleAppService.GetAsync();
     }
 
     [HttpGet]
     [Route("authorized")]
     [Authorize]
-    public async Task<SampleDto> GetAuthorizedAsync()
+    public Task<SampleDto> GetAuthorizedAsync()
     {
-        return await _sampleAppService.GetAsync();
+        return _sampleAppService.GetAsync();
     }
 }

@@ -1,17 +1,16 @@
-using System.Threading.Tasks;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 
 namespace Tasky.DbMigrator;
 
-public class OpenIddictDataSeedContributor(OpenIddictDataSeeder OpenIddictDataSeeder)
+public class OpenIddictDataSeedContributor(OpenIddictDataSeeder openIddictDataSeeder)
     : IDataSeedContributor,
         ITransientDependency
 {
-    private readonly OpenIddictDataSeeder _OpenIddictDataSeeder = OpenIddictDataSeeder;
+    private readonly OpenIddictDataSeeder _openIddictDataSeeder = openIddictDataSeeder;
 
-    public async Task SeedAsync(DataSeedContext context)
+    public Task SeedAsync(DataSeedContext context)
     {
-        await _OpenIddictDataSeeder.SeedAsync();
+        return _openIddictDataSeeder.SeedAsync();
     }
 }

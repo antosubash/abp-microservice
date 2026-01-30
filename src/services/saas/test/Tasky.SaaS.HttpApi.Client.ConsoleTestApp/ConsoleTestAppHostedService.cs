@@ -14,21 +14,21 @@ public class ConsoleTestAppHostedService(IConfiguration configuration) : IHosted
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         using (
-            var application = await AbpApplicationFactory.CreateAsync<SaaSConsoleApiClientModule>(
-                options =>
+            var application = await AbpApplicationFactory
+                .CreateAsync<SaaSConsoleApiClientModule>(options =>
                 {
                     options.Services.ReplaceConfiguration(_configuration);
                     options.UseAutofac();
-                }
-            )
+                })
+                .ConfigureAwait(false)
         )
         {
-            await application.InitializeAsync();
+            await application.InitializeAsync().ConfigureAwait(false);
 
             var demo = application.ServiceProvider.GetRequiredService<ClientDemoService>();
-            await demo.RunAsync();
+            await demo.RunAsync().ConfigureAwait(false);
 
-            await application.ShutdownAsync();
+            await application.ShutdownAsync().ConfigureAwait(false);
         }
     }
 

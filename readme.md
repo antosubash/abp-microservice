@@ -20,6 +20,36 @@ dotnet new install Anto.Abp.Microservice.Template
 dotnet new abp-ms -n MyProjectName
 ```
 
+### Quick Start (Development)
+
+After cloning or creating a project from this template:
+
+```bash
+# First-time setup
+make install          # Restore tools and install git hooks
+make build            # Build the solution
+
+# Run the application
+make run              # Run with .NET Aspire (includes all services)
+
+# Or use individual commands
+dotnet tool restore
+dotnet husky install
+cd src && dotnet build Tasky.sln
+cd src/apps/Tasky.AppHost && dotnet run
+```
+
+**Available Makefile commands:**
+- `make help` - Show all available targets
+- `make dev-help` - Show quick start guide
+- `make build` - Build the solution
+- `make test` - Run tests
+- `make format` - Format code
+- `make fix` - Auto-fix analyzer issues + format
+- `make run` - Run with Aspire orchestration
+
+See the [Makefile](Makefile) for all available commands.
+
 ## Documentation
 
 You can find everything in this repo explained [here](https://blog.antosubash.com/posts/abp-microservice-series). There is also a [YouTube Video](https://www.youtube.com/watch?v=PFFNHQUn74A) for this project.

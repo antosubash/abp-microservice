@@ -13,10 +13,7 @@ public class ProjectsDomainSharedModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<ProjectsDomainSharedModule>();
-        });
+        Configure<AbpVirtualFileSystemOptions>(options => options.FileSets.AddEmbedded<ProjectsDomainSharedModule>());
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -27,8 +24,7 @@ public class ProjectsDomainSharedModule : AbpModule
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("Projects", typeof(ProjectsResource));
-        });
+            options.MapCodeNamespace("Projects", typeof(ProjectsResource))
+        );
     }
 }

@@ -23,6 +23,8 @@ public class AdministrationEntityFrameworkCoreModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         // https://www.npgsql.org/efcore/release-notes/6.0.html#opting-out-of-the-new-timestamp-mapping-logic
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -40,10 +42,7 @@ public class AdministrationEntityFrameworkCoreModule : AbpModule
             );
         });
 
-        Configure<AbpDbContextOptions>(options =>
-        {
-            options.UseNpgsql();
-        });
+        Configure<AbpDbContextOptions>(options => options.UseNpgsql());
 
         context.Services.AddAbpDbContext<AdministrationDbContext>(options =>
         {

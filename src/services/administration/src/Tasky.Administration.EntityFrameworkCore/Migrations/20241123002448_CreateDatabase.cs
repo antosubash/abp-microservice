@@ -22,17 +22,9 @@ namespace Tasky.Administration.Migrations
                         nullable: true
                     ),
                     UserId = table.Column<Guid>(type: "uuid", nullable: true),
-                    UserName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    TenantName = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
+                    TenantName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                     ImpersonatorUserId = table.Column<Guid>(type: "uuid", nullable: true),
                     ImpersonatorUserName = table.Column<string>(
                         type: "character varying(256)",
@@ -45,52 +37,21 @@ namespace Tasky.Administration.Migrations
                         maxLength: 64,
                         nullable: true
                     ),
-                    ExecutionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    ExecutionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExecutionDuration = table.Column<int>(type: "integer", nullable: false),
                     ClientIpAddress = table.Column<string>(
                         type: "character varying(64)",
                         maxLength: 64,
                         nullable: true
                     ),
-                    ClientName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: true
-                    ),
-                    ClientId = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    CorrelationId = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    BrowserInfo = table.Column<string>(
-                        type: "character varying(512)",
-                        maxLength: 512,
-                        nullable: true
-                    ),
-                    HttpMethod = table.Column<string>(
-                        type: "character varying(16)",
-                        maxLength: 16,
-                        nullable: true
-                    ),
-                    Url = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
+                    ClientName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    ClientId = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    CorrelationId = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    BrowserInfo = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
+                    HttpMethod = table.Column<string>(type: "character varying(16)", maxLength: 16, nullable: true),
+                    Url = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Exceptions = table.Column<string>(type: "text", nullable: true),
-                    Comments = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
+                    Comments = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     HttpStatusCode = table.Column<int>(type: "integer", nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: false),
                     ConcurrencyStamp = table.Column<string>(
@@ -99,10 +60,7 @@ namespace Tasky.Administration.Migrations
                         nullable: false
                     ),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpAuditLogs", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpAuditLogs", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -110,22 +68,11 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    DisplayName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    DisplayName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpFeatureGroups", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpFeatureGroups", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -133,36 +80,12 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    ParentName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: true
-                    ),
-                    DisplayName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
-                    Description = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
-                    DefaultValue = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
+                    GroupName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ParentName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    DisplayName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    DefaultValue = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     IsVisibleToClients = table.Column<bool>(type: "boolean", nullable: false),
                     IsAvailableToHost = table.Column<bool>(type: "boolean", nullable: false),
                     AllowedProviders = table.Column<string>(
@@ -170,17 +93,10 @@ namespace Tasky.Administration.Migrations
                         maxLength: 256,
                         nullable: true
                     ),
-                    ValueType = table.Column<string>(
-                        type: "character varying(2048)",
-                        maxLength: 2048,
-                        nullable: true
-                    ),
+                    ValueType = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: true),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpFeatures", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpFeatures", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -188,31 +104,12 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    Value = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    ProviderName = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    ProviderKey = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ProviderName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    ProviderKey = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpFeatureValues", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpFeatureValues", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -221,26 +118,11 @@ namespace Tasky.Administration.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    ProviderName = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
-                    ProviderKey = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ProviderName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
+                    ProviderKey = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpPermissionGrants", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpPermissionGrants", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -248,22 +130,11 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    DisplayName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    DisplayName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpPermissionGroups", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpPermissionGroups", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -271,33 +142,13 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    ParentName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: true
-                    ),
-                    DisplayName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
+                    GroupName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    ParentName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    DisplayName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     IsEnabled = table.Column<bool>(type: "boolean", nullable: false),
                     MultiTenancySide = table.Column<byte>(type: "smallint", nullable: false),
-                    Providers = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: true
-                    ),
+                    Providers = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     StateCheckers = table.Column<string>(
                         type: "character varying(256)",
                         maxLength: 256,
@@ -305,10 +156,7 @@ namespace Tasky.Administration.Migrations
                     ),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpPermissions", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpPermissions", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -316,40 +164,21 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    DisplayName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: false
-                    ),
-                    Description = table.Column<string>(
-                        type: "character varying(512)",
-                        maxLength: 512,
-                        nullable: true
-                    ),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    DisplayName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     DefaultValue = table.Column<string>(
                         type: "character varying(2048)",
                         maxLength: 2048,
                         nullable: true
                     ),
                     IsVisibleToClients = table.Column<bool>(type: "boolean", nullable: false),
-                    Providers = table.Column<string>(
-                        type: "character varying(1024)",
-                        maxLength: 1024,
-                        nullable: true
-                    ),
+                    Providers = table.Column<string>(type: "character varying(1024)", maxLength: 1024, nullable: true),
                     IsInherited = table.Column<bool>(type: "boolean", nullable: false),
                     IsEncrypted = table.Column<bool>(type: "boolean", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpSettingDefinitions", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpSettingDefinitions", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -357,31 +186,12 @@ namespace Tasky.Administration.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: false
-                    ),
-                    Value = table.Column<string>(
-                        type: "character varying(2048)",
-                        maxLength: 2048,
-                        nullable: false
-                    ),
-                    ProviderName = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
-                    ProviderKey = table.Column<string>(
-                        type: "character varying(64)",
-                        maxLength: 64,
-                        nullable: true
-                    ),
+                    Name = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    Value = table.Column<string>(type: "character varying(2048)", maxLength: 2048, nullable: false),
+                    ProviderName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
+                    ProviderKey = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AbpSettings", x => x.Id);
-                }
+                constraints: table => table.PrimaryKey("PK_AbpSettings", x => x.Id)
             );
 
             migrationBuilder.CreateTable(
@@ -391,25 +201,10 @@ namespace Tasky.Administration.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     AuditLogId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ServiceName = table.Column<string>(
-                        type: "character varying(256)",
-                        maxLength: 256,
-                        nullable: true
-                    ),
-                    MethodName = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: true
-                    ),
-                    Parameters = table.Column<string>(
-                        type: "character varying(2000)",
-                        maxLength: 2000,
-                        nullable: true
-                    ),
-                    ExecutionTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    ServiceName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    MethodName = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
+                    Parameters = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
+                    ExecutionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ExecutionDuration = table.Column<int>(type: "integer", nullable: false),
                     ExtraProperties = table.Column<string>(type: "text", nullable: true),
                 },
@@ -433,17 +228,10 @@ namespace Tasky.Administration.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     AuditLogId = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    ChangeTime = table.Column<DateTime>(
-                        type: "timestamp with time zone",
-                        nullable: false
-                    ),
+                    ChangeTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ChangeType = table.Column<byte>(type: "smallint", nullable: false),
                     EntityTenantId = table.Column<Guid>(type: "uuid", nullable: true),
-                    EntityId = table.Column<string>(
-                        type: "character varying(128)",
-                        maxLength: 128,
-                        nullable: true
-                    ),
+                    EntityId = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: true),
                     EntityTypeFullName = table.Column<string>(
                         type: "character varying(128)",
                         maxLength: 128,
@@ -471,11 +259,7 @@ namespace Tasky.Administration.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: true),
                     EntityChangeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    NewValue = table.Column<string>(
-                        type: "character varying(512)",
-                        maxLength: 512,
-                        nullable: true
-                    ),
+                    NewValue = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     OriginalValue = table.Column<string>(
                         type: "character varying(512)",
                         maxLength: 512,
@@ -554,11 +338,7 @@ namespace Tasky.Administration.Migrations
                 unique: true
             );
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AbpFeatures_GroupName",
-                table: "AbpFeatures",
-                column: "GroupName"
-            );
+            migrationBuilder.CreateIndex(name: "IX_AbpFeatures_GroupName", table: "AbpFeatures", column: "GroupName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AbpFeatures_Name",

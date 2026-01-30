@@ -16,15 +16,15 @@ public class ClientDemoService(
 ) : ITransientDependency
 {
     private readonly ISampleAppService _sampleAppService = sampleAppService;
-    private readonly IIdentityModelAuthenticationService _authenticationService =
-        authenticationService;
+    private readonly IIdentityModelAuthenticationService _authenticationService = authenticationService;
+
     private readonly IConfiguration _configuration = configuration;
 
     public async Task RunAsync()
     {
-        await TestWithDynamicProxiesAsync();
-        await TestWithHttpClientAndIdentityModelAuthenticationServiceAsync();
-        await TestAllManuallyAsync();
+        await TestWithDynamicProxiesAsync().ConfigureAwait(false);
+        await TestWithHttpClientAndIdentityModelAuthenticationServiceAsync().ConfigureAwait(false);
+        await TestAllManuallyAsync().ConfigureAwait(false);
     }
 
     /* Shows how to perform an HTTP request to the API using ABP's dynamic c# proxy
@@ -36,10 +36,10 @@ public class ClientDemoService(
         Console.WriteLine();
         Console.WriteLine($"***** {nameof(TestWithDynamicProxiesAsync)} *****");
 
-        var result = await _sampleAppService.GetAsync();
+        var result = await _sampleAppService.GetAsync().ConfigureAwait(false);
         Console.WriteLine("Result: " + result.Value);
 
-        result = await _sampleAppService.GetAuthorizedAsync();
+        result = await _sampleAppService.GetAuthorizedAsync().ConfigureAwait(false);
         Console.WriteLine("Result (authorized): " + result.Value);
     }
 
@@ -49,45 +49,40 @@ public class ClientDemoService(
     private async Task TestWithHttpClientAndIdentityModelAuthenticationServiceAsync()
     {
         Console.WriteLine();
-        Console.WriteLine(
-            $"***** {nameof(TestWithHttpClientAndIdentityModelAuthenticationServiceAsync)} *****"
-        );
+        Console.WriteLine($"***** {nameof(TestWithHttpClientAndIdentityModelAuthenticationServiceAsync)} *****");
 
-        //Get access token using ABP's IIdentityModelAuthenticationService
-
-        var accessToken = await _authenticationService.GetAccessTokenAsync(
-            new IdentityClientConfiguration(
-                _configuration["IdentityClients:Default:Authority"],
-                _configuration["IdentityClients:Default:Scope"],
-                _configuration["IdentityClients:Default:ClientId"],
-                _configuration["IdentityClients:Default:ClientSecret"],
-                _configuration["IdentityClients:Default:GrantType"],
-                _configuration["IdentityClients:Default:UserName"],
-                _configuration["IdentityClients:Default:UserPassword"]
+        // Get access token using ABP's IIdentityModelAuthenticationService
+        var accessToken = await _authenticationService
+            .GetAccessTokenAsync(
+                new IdentityClientConfiguration(
+                    _configuration["IdentityClients:Default:Authority"],
+                    _configuration["IdentityClients:Default:Scope"],
+                    _configuration["IdentityClients:Default:ClientId"],
+                    _configuration["IdentityClients:Default:ClientSecret"],
+                    _configuration["IdentityClients:Default:GrantType"],
+                    _configuration["IdentityClients:Default:UserName"],
+                    _configuration["IdentityClients:Default:UserPassword"]
+                )
             )
-        );
+            .ConfigureAwait(false);
 
-        //Perform the actual HTTP request
-
+        // Perform the actual HTTP request
         using (var httpClient = new HttpClient())
         {
             httpClient.SetBearerToken(accessToken);
 
             var url =
-                _configuration["RemoteServices:IdentityService:BaseUrl"]
-                + "api/IdentityService/sample/authorized";
+                _configuration["RemoteServices:IdentityService:BaseUrl"] + "api/IdentityService/sample/authorized";
 
-            var responseMessage = await httpClient.GetAsync(url);
+            var responseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
             if (responseMessage.IsSuccessStatusCode)
             {
-                var responseString = await responseMessage.Content.ReadAsStringAsync();
+                var responseString = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
                 Console.WriteLine("Result: " + responseString);
             }
             else
             {
-                throw new Exception(
-                    "Remote server returns error code: " + responseMessage.StatusCode
-                );
+                throw new Exception("Remote server returns error code: " + responseMessage.StatusCode);
             }
         }
     }
@@ -101,13 +96,13 @@ public class ClientDemoService(
         Console.WriteLine();
         Console.WriteLine($"***** {nameof(TestAllManuallyAsync)} *****");
 
-        //Obtain access token from the IDS4 server
+        // Obtain access token from the IDS4 server
 
         // discover endpoints from metadata
         var client = new HttpClient();
-        var disco = await client.GetDiscoveryDocumentAsync(
-            _configuration["IdentityClients:Default:Authority"]
-        );
+        var disco = await client
+            .GetDiscoveryDocumentAsync(_configuration["IdentityClients:Default:Authority"])
+            .ConfigureAwait(false);
         if (disco.IsError)
         {
             Console.WriteLine(disco.Error);
@@ -115,17 +110,19 @@ public class ClientDemoService(
         }
 
         // request token
-        var tokenResponse = await client.RequestPasswordTokenAsync(
-            new PasswordTokenRequest
-            {
-                Address = disco.TokenEndpoint,
-                ClientId = _configuration["IdentityClients:Default:ClientId"],
-                ClientSecret = _configuration["IdentityClients:Default:ClientSecret"],
-                UserName = _configuration["IdentityClients:Default:UserName"],
-                Password = _configuration["IdentityClients:Default:UserPassword"],
-                Scope = _configuration["IdentityClients:Default:Scope"],
-            }
-        );
+        var tokenResponse = await client
+            .RequestPasswordTokenAsync(
+                new PasswordTokenRequest
+                {
+                    Address = disco.TokenEndpoint,
+                    ClientId = _configuration["IdentityClients:Default:ClientId"],
+                    ClientSecret = _configuration["IdentityClients:Default:ClientSecret"],
+                    UserName = _configuration["IdentityClients:Default:UserName"],
+                    Password = _configuration["IdentityClients:Default:UserPassword"],
+                    Scope = _configuration["IdentityClients:Default:Scope"],
+                }
+            )
+            .ConfigureAwait(false);
 
         if (tokenResponse.IsError)
         {
@@ -135,27 +132,23 @@ public class ClientDemoService(
 
         Console.WriteLine(tokenResponse.Json);
 
-        //Perform the actual HTTP request
-
+        // Perform the actual HTTP request
         using (var httpClient = new HttpClient())
         {
             httpClient.SetBearerToken(tokenResponse.AccessToken);
 
             var url =
-                _configuration["RemoteServices:IdentityService:BaseUrl"]
-                + "api/IdentityService/sample/authorized";
+                _configuration["RemoteServices:IdentityService:BaseUrl"] + "api/IdentityService/sample/authorized";
 
-            var responseMessage = await httpClient.GetAsync(url);
+            var responseMessage = await httpClient.GetAsync(url).ConfigureAwait(false);
             if (responseMessage.IsSuccessStatusCode)
             {
-                var responseString = await responseMessage.Content.ReadAsStringAsync();
+                var responseString = await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(false);
                 Console.WriteLine("Result: " + responseString);
             }
             else
             {
-                throw new Exception(
-                    "Remote server returns error code: " + responseMessage.StatusCode
-                );
+                throw new Exception("Remote server returns error code: " + responseMessage.StatusCode);
             }
         }
     }

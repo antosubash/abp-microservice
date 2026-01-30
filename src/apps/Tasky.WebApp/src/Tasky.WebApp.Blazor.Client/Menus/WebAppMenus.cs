@@ -1,9 +1,9 @@
 ﻿namespace Tasky.WebApp.Blazor.Client.Menus;
 
-public class WebAppMenus
+public static class WebAppMenus
 {
     private const string Prefix = "WebApp";
     public const string Home = Prefix + ".Home";
 
-    //Add your menu items here...
+    // Add your menu items here...
 }

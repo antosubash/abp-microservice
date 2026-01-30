@@ -1,6 +1,6 @@
 ﻿namespace Tasky.Projects;
 
-public class ProjectsRemoteServiceConsts
+public static class ProjectsRemoteServiceConsts
 {
     public const string RemoteServiceName = "Projects";
 

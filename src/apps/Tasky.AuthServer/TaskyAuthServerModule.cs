@@ -61,47 +61,32 @@ public class TaskyAuthServerModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
-        var hostingEnvironment = context.Services.GetHostingEnvironment();
+        ArgumentNullException.ThrowIfNull(context);
+
         var configuration = context.Services.GetConfiguration();
 
         Configure<AbpBundlingOptions>(options =>
         {
             options.StyleBundles.Configure(
                 LeptonXLiteThemeBundles.Styles.Global,
-                bundle =>
-                {
-                    bundle.AddFiles("/global-styles.css");
-                }
+                bundle => bundle.AddFiles("/global-styles.css")
             );
         });
 
-        Configure<AbpAuditingOptions>(options =>
-        {
-            //options.IsEnabledForGetRequests = true;
-            options.ApplicationName = "AuthServer";
-        });
+        Configure<AbpAuditingOptions>(options => options.ApplicationName = "AuthServer");
 
         Configure<AppUrlOptions>(options =>
         {
             options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
-            options.RedirectAllowedUrls.AddRange(
-                configuration["App:RedirectAllowedUrls"].Split(',')
-            );
+            options.RedirectAllowedUrls.AddRange(configuration["App:RedirectAllowedUrls"].Split(','));
 
             options.Applications["Angular"].RootUrl = configuration["App:ClientUrl"];
-            options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] =
-                "account/reset-password";
+            options.Applications["Angular"].Urls[AccountUrlNames.PasswordReset] = "account/reset-password";
         });
 
-        Configure<AbpBackgroundJobOptions>(options =>
-        {
-            options.IsJobExecutionEnabled = false;
-        });
+        Configure<AbpBackgroundJobOptions>(options => options.IsJobExecutionEnabled = false);
 
-        Configure<AbpDistributedCacheOptions>(options =>
-        {
-            options.KeyPrefix = "Tasky:";
-        });
+        Configure<AbpDistributedCacheOptions>(options => options.KeyPrefix = "Tasky:");
     }
 
     public override void OnApplicationInitialization(ApplicationInitializationContext context)

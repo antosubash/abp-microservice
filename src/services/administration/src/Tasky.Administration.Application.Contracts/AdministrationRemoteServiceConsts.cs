@@ -1,6 +1,6 @@
 ﻿namespace Tasky.Administration;
 
-public class AdministrationRemoteServiceConsts
+public static class AdministrationRemoteServiceConsts
 {
     public const string RemoteServiceName = "Administration";
 

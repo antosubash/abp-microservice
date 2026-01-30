@@ -1,20 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <RootNamespace>Tasky.SaaS</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="9.0.0" />
-        <ProjectReference Include="..\..\..\..\shared\Tasky.Shared\Tasky.Shared.csproj" />
-        <ProjectReference Include="..\Tasky.SaaS.Domain\Tasky.SaaS.Domain.csproj" />
-        <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="9.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="9.0.0" />
-    </ItemGroup></Project>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Tasky.SaaS</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore" Version="10.0.2" />
+    <ProjectReference Include="..\..\..\..\shared\Tasky.Shared\Tasky.Shared.csproj" />
+    <ProjectReference Include="..\Tasky.SaaS.Domain\Tasky.SaaS.Domain.csproj" />
+    <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="10.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.PostgreSql" Version="10.0.2" />
+  </ItemGroup>
+</Project>

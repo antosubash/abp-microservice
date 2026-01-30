@@ -5,9 +5,7 @@ using Volo.Abp.MultiTenancy;
 
 namespace Tasky.SaaS;
 
-public class SaaSDataSeedContributor(ICurrentTenant currentTenant)
-    : IDataSeedContributor,
-        ITransientDependency
+public class SaaSDataSeedContributor(ICurrentTenant currentTenant) : IDataSeedContributor, ITransientDependency
 {
     private readonly ICurrentTenant _currentTenant = currentTenant;
 

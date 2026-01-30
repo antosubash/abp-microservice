@@ -1,6 +1,6 @@
 ﻿namespace Tasky.IdentityService;
 
-public class IdentityServiceRemoteServiceConsts
+public static class IdentityServiceRemoteServiceConsts
 {
     public const string RemoteServiceName = "IdentityService";
 

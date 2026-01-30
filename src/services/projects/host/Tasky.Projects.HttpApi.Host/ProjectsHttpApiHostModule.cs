@@ -29,7 +29,6 @@ public class ProjectsHttpApiHostModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
-        var configuration = context.Services.GetConfiguration();
 
         context.ConfigureMicroservice(TaskyNames.ProjectsApi);
 
@@ -40,19 +39,13 @@ public class ProjectsHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<ProjectsDomainSharedModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.Projects.Domain.Shared",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.Projects.Domain.Shared", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<ProjectsDomainModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.Projects.Domain",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.Projects.Domain", Path.DirectorySeparatorChar)
                     )
                 );
                 options.FileSets.ReplaceEmbeddedByPhysical<ProjectsApplicationContractsModule>(
@@ -67,10 +60,7 @@ public class ProjectsHttpApiHostModule : AbpModule
                 options.FileSets.ReplaceEmbeddedByPhysical<ProjectsApplicationModule>(
                     Path.Combine(
                         hostingEnvironment.ContentRootPath,
-                        string.Format(
-                            "..{0}..{0}src{0}Tasky.Projects.Application",
-                            Path.DirectorySeparatorChar
-                        )
+                        string.Format("..{0}..{0}src{0}Tasky.Projects.Application", Path.DirectorySeparatorChar)
                     )
                 );
             });

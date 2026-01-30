@@ -2,7 +2,7 @@
 
 namespace Tasky.Projects.Permissions;
 
-public class ProjectsPermissions
+public static class ProjectsPermissions
 {
     public const string GroupName = "Projects";
 

@@ -16,10 +16,13 @@ using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.Data;
 using Volo.Abp.DistributedLocking;
 using Volo.Abp.EventBus.RabbitMq;
+using Volo.Abp.FeatureManagement;
 using Volo.Abp.Localization;
 using Volo.Abp.Modularity;
 using Volo.Abp.MultiTenancy;
+using Volo.Abp.PermissionManagement;
 using Volo.Abp.RabbitMQ;
+using Volo.Abp.SettingManagement;
 using Volo.Abp.Swashbuckle;
 
 namespace Tasky;
@@ -38,15 +41,20 @@ public class TaskyHostingModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         var configuration = context.Services.GetConfiguration();
-        var hostingEnvironment = context.Services.GetHostingEnvironment();
 
         ConfigureDistributedLocking(context, configuration);
 
-        Configure<AbpMultiTenancyOptions>(options =>
-        {
-            options.IsEnabled = MultiTenancyConsts.IsEnabled;
-        });
+        Configure<AbpMultiTenancyOptions>(options => options.IsEnabled = MultiTenancyConsts.IsEnabled);
+
+        // Disable dynamic initializers to prevent race conditions when multiple services share the same database
+        Configure<PermissionManagementOptions>(options => options.IsDynamicPermissionStoreEnabled = false);
+
+        Configure<FeatureManagementOptions>(options => options.IsDynamicFeatureStoreEnabled = false);
+
+        Configure<SettingManagementOptions>(options => options.IsDynamicSettingStoreEnabled = false);
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -84,16 +92,11 @@ public class TaskyHostingModule : AbpModule
         });
     }
 
-    private static void ConfigureDistributedLocking(
-        ServiceConfigurationContext context,
-        IConfiguration configuration
-    )
+    private static void ConfigureDistributedLocking(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.AddSingleton<IDistributedLockProvider>(sp =>
         {
-            var connection = ConnectionMultiplexer.Connect(
-                configuration.GetConnectionString(TaskyNames.Redis)!
-            );
+            var connection = ConnectionMultiplexer.Connect(configuration.GetConnectionString(TaskyNames.Redis)!);
 
             return new RedisDistributedSynchronizationProvider(connection.GetDatabase());
         });
@@ -109,14 +112,12 @@ public static class HostingExtensions
         string name
     )
     {
-        var dataProtectionBuilder = context
-            .Services.AddDataProtection()
-            .SetApplicationName(TaskyNames.Tasky);
+        ArgumentNullException.ThrowIfNull(context);
+
+        var dataProtectionBuilder = context.Services.AddDataProtection().SetApplicationName(TaskyNames.Tasky);
         if (!hostingEnvironment.IsDevelopment())
         {
-            var redis = ConnectionMultiplexer.Connect(
-                configuration.GetConnectionString(TaskyNames.Redis)!
-            );
+            var redis = ConnectionMultiplexer.Connect(configuration.GetConnectionString(TaskyNames.Redis)!);
             dataProtectionBuilder.PersistKeysToStackExchangeRedis(redis, $"{name}-Keys");
         }
 

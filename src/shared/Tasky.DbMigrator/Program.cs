@@ -6,9 +6,9 @@ using Volo.Abp.Identity.EntityFrameworkCore;
 
 namespace Tasky.DbMigrator;
 
-internal class Program
+internal static class Program
 {
-    private static async Task Main(string[] args)
+    private static Task Main(string[] args)
     {
         TaskyLogging.Initialize();
 
@@ -16,9 +16,7 @@ internal class Program
 
         builder.AddServiceDefaults();
 
-        builder.AddNpgsqlDbContext<AdministrationDbContext>(
-            connectionName: TaskyNames.AdministrationDb
-        );
+        builder.AddNpgsqlDbContext<AdministrationDbContext>(connectionName: TaskyNames.AdministrationDb);
         builder.AddNpgsqlDbContext<IdentityDbContext>(connectionName: TaskyNames.IdentityServiceDb);
         builder.AddNpgsqlDbContext<SaaSDbContext>(connectionName: TaskyNames.SaaSDb);
         builder.AddNpgsqlDbContext<ProjectsDbContext>(connectionName: TaskyNames.ProjectsDb);
@@ -31,6 +29,6 @@ internal class Program
 
         var host = builder.Build();
 
-        await host.RunAsync();
+        return host.RunAsync();
     }
 }

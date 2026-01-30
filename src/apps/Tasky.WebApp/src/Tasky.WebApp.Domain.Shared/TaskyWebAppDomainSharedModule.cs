@@ -28,9 +28,8 @@ public class TaskyWebAppDomainSharedModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<TaskyWebAppDomainSharedModule>();
-        });
+            options.FileSets.AddEmbedded<TaskyWebAppDomainSharedModule>()
+        );
 
         Configure<AbpLocalizationOptions>(options =>
         {
@@ -43,8 +42,7 @@ public class TaskyWebAppDomainSharedModule : AbpModule
         });
 
         Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("WebApp", typeof(WebAppResource));
-        });
+            options.MapCodeNamespace("WebApp", typeof(WebAppResource))
+        );
     }
 }

@@ -23,119 +23,161 @@ public class TaskyDbMigrationService(
     IUnitOfWorkManager unitOfWorkManager
 ) : ITransientDependency
 {
-    private readonly ICurrentTenant _currentTenant = currentTenant;
-    private readonly IDataSeeder _dataSeeder = dataSeeder;
-    private readonly ILogger<TaskyDbMigrationService> _logger = logger;
-    private readonly ITenantRepository _tenantRepository = tenantRepository;
-    private readonly IUnitOfWorkManager _unitOfWorkManager = unitOfWorkManager;
-
     public async Task MigrateAsync(CancellationToken cancellationToken)
     {
-        await CreateDatabasesAsync(cancellationToken);
+        // Check if we should reset (drop and recreate) databases
+        var resetDatabases = Environment.GetEnvironmentVariable("RESET_DATABASES");
+        if (resetDatabases?.Equals("true", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            logger.LogWarning("RESET_DATABASES flag detected. Dropping all databases...");
+            await DropDatabasesAsync(cancellationToken).ConfigureAwait(false);
+            logger.LogInformation("All databases dropped successfully.");
+        }
 
-        _logger.LogInformation("Starting Migrations ...");
-        await MigrateHostAsync(cancellationToken);
-        await MigrateTenantsAsync(cancellationToken);
-        _logger.LogInformation("Completed Migrations.");
+        await CreateDatabasesAsync(cancellationToken).ConfigureAwait(false);
+
+        logger.LogInformation("Starting Migrations ...");
+        await MigrateHostAsync(cancellationToken).ConfigureAwait(false);
+        await MigrateTenantsAsync(cancellationToken).ConfigureAwait(false);
+        logger.LogInformation("Completed Migrations.");
+    }
+
+    private async Task DropDatabasesAsync(CancellationToken cancellationToken)
+    {
+        using var uow = unitOfWorkManager.Begin(true);
+
+        await DropDatabaseAsync<SaaSDbContext>(cancellationToken).ConfigureAwait(false);
+        await DropDatabaseAsync<AdministrationDbContext>(cancellationToken).ConfigureAwait(false);
+        await DropDatabaseAsync<IdentityServiceDbContext>(cancellationToken).ConfigureAwait(false);
+        await DropDatabaseAsync<ProjectsDbContext>(cancellationToken).ConfigureAwait(false);
+
+        await uow.CompleteAsync(cancellationToken).ConfigureAwait(false);
     }
 
     private async Task CreateDatabasesAsync(CancellationToken cancellationToken)
     {
-        using var uow = _unitOfWorkManager.Begin(true);
+        using var uow = unitOfWorkManager.Begin(true);
 
-        await EnsureDatabaseAsync<SaaSDbContext>(cancellationToken);
-        await EnsureDatabaseAsync<AdministrationDbContext>(cancellationToken);
-        await EnsureDatabaseAsync<IdentityServiceDbContext>(cancellationToken);
+        await EnsureDatabaseAsync<SaaSDbContext>(cancellationToken).ConfigureAwait(false);
+        await EnsureDatabaseAsync<AdministrationDbContext>(cancellationToken).ConfigureAwait(false);
+        await EnsureDatabaseAsync<IdentityServiceDbContext>(cancellationToken).ConfigureAwait(false);
 
-        await uow.CompleteAsync(cancellationToken);
+        await uow.CompleteAsync(cancellationToken).ConfigureAwait(false);
     }
 
     private async Task MigrateHostAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Migrating Host side ...");
-        await MigrateDatabasesAsync(null, cancellationToken);
-        await SeedDataAsync(null);
-        _logger.LogInformation("Host side migration completed.");
+        logger.LogInformation("Migrating Host side ...");
+        await MigrateDatabasesAsync(null, cancellationToken).ConfigureAwait(false);
+        await SeedDataAsync(null).ConfigureAwait(false);
+        logger.LogInformation("Host side migration completed.");
     }
 
     private async Task MigrateTenantsAsync(CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Migrating tenants ...");
+        logger.LogInformation("Migrating tenants ...");
 
-        var tenants = await _tenantRepository.GetListAsync(
-            includeDetails: true,
-            cancellationToken: cancellationToken
-        );
+        var tenants = await tenantRepository
+            .GetListAsync(includeDetails: true, cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
         var migratedDatabaseSchemas = new HashSet<string>();
 
         foreach (var tenant in tenants)
         {
-            using (_currentTenant.Change(tenant.Id))
+            using (currentTenant.Change(tenant.Id))
             {
                 // Database schema migration
                 var connectionString = tenant.FindDefaultConnectionString();
                 if (
                     !connectionString.IsNullOrWhiteSpace()
-                    && //tenant has a separate database
+                    && // tenant has a separate database
                     !migratedDatabaseSchemas.Contains(connectionString)
-                ) //the database was not migrated yet
+                ) // the database was not migrated yet
                 {
-                    _logger.LogInformation(
-                        "Migrating Tenant: {Name} ({TenantId})",
-                        tenant.Name,
-                        tenant.Id
-                    );
+                    logger.LogInformation("Migrating Tenant: {Name} ({TenantId})", tenant.Name, tenant.Id);
 
-                    await MigrateDatabasesAsync(tenant, cancellationToken);
+                    await MigrateDatabasesAsync(tenant, cancellationToken).ConfigureAwait(false);
                     migratedDatabaseSchemas.AddIfNotContains(connectionString);
                 }
 
-                //Seed data
-                await SeedDataAsync(tenant);
+                // Seed data
+                await SeedDataAsync(tenant).ConfigureAwait(false);
             }
         }
 
-        _logger.LogInformation("Tenant migrations are complete.");
+        logger.LogInformation("Tenant migrations are complete.");
+    }
+
+    private async Task DropDatabaseAsync<TDbContext>(CancellationToken cancellationToken)
+        where TDbContext : DbContext, IEfCoreDbContext
+    {
+        var name = typeof(TDbContext).Name.RemovePostFix("DbContext");
+        logger.LogInformation("Dropping {Name} database ...", name);
+
+        var dbContext = await unitOfWorkManager
+            .Current!.ServiceProvider.GetRequiredService<IDbContextProvider<TDbContext>>()
+            .GetDbContextAsync()
+            .ConfigureAwait(false);
+
+        var strategy = dbContext.Database.CreateExecutionStrategy();
+        var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
+
+        await strategy
+            .ExecuteAsync(async () =>
+            {
+                if (await dbCreator.ExistsAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    await dbCreator.DeleteAsync(cancellationToken).ConfigureAwait(false);
+                    logger.LogInformation("Dropped {Name} database.", name);
+                }
+                else
+                {
+                    logger.LogInformation("{Name} database does not exist, skipping drop.", name);
+                }
+            })
+            .ConfigureAwait(false);
     }
 
     private async Task EnsureDatabaseAsync<TDbContext>(CancellationToken cancellationToken)
         where TDbContext : DbContext, IEfCoreDbContext
     {
-        var dbContext = await _unitOfWorkManager
+        var dbContext = await unitOfWorkManager
             .Current!.ServiceProvider.GetRequiredService<IDbContextProvider<TDbContext>>()
-            .GetDbContextAsync();
+            .GetDbContextAsync()
+            .ConfigureAwait(false);
 
         var strategy = dbContext.Database.CreateExecutionStrategy();
 
         var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
 
-        await strategy.ExecuteAsync(async () =>
-        {
-            // Create the database if it does not exist.
-            // Do this first so there is then a database to start a transaction against.
-            if (!await dbCreator.ExistsAsync(cancellationToken))
+        await strategy
+            .ExecuteAsync(async () =>
             {
-                await dbCreator.CreateAsync(cancellationToken);
-            }
-        });
+                // Create the database if it does not exist.
+                // Do this first so there is then a database to start a transaction against.
+                if (!await dbCreator.ExistsAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    await dbCreator.CreateAsync(cancellationToken).ConfigureAwait(false);
+                }
+            })
+            .ConfigureAwait(false);
     }
 
     private async Task MigrateDatabasesAsync(Tenant? tenant, CancellationToken cancellationToken)
     {
-        using var uow = _unitOfWorkManager.Begin(true);
+        using var uow = unitOfWorkManager.Begin(true);
 
         if (tenant is null)
         {
             /* SaaS schema should only be available in the host side */
-            await MigrateDatabaseAsync<SaaSDbContext>(cancellationToken);
+            await MigrateDatabaseAsync<SaaSDbContext>(cancellationToken).ConfigureAwait(false);
         }
 
-        await MigrateDatabaseAsync<AdministrationDbContext>(cancellationToken);
-        await MigrateDatabaseAsync<IdentityServiceDbContext>(cancellationToken);
-        await MigrateDatabaseAsync<ProjectsDbContext>(cancellationToken);
-        //await MigrateDatabaseAsync<WebAppDbContext>(cancellationToken);
+        await MigrateDatabaseAsync<AdministrationDbContext>(cancellationToken).ConfigureAwait(false);
+        await MigrateDatabaseAsync<IdentityServiceDbContext>(cancellationToken).ConfigureAwait(false);
+        await MigrateDatabaseAsync<ProjectsDbContext>(cancellationToken).ConfigureAwait(false);
 
-        await uow.CompleteAsync(cancellationToken);
+        await uow.CompleteAsync(cancellationToken).ConfigureAwait(false);
     }
 
     private async Task MigrateDatabaseAsync<TDbContext>(CancellationToken cancellationToken)
@@ -143,43 +185,37 @@ public class TaskyDbMigrationService(
     {
         var name = typeof(TDbContext).Name.RemovePostFix("DbContext");
 
-        _logger.LogInformation("Migrating {Name} database ...", name);
+        logger.LogInformation("Migrating {Name} database ...", name);
 
-        var dbContext = await _unitOfWorkManager
+        var dbContext = await unitOfWorkManager
             .Current!.ServiceProvider.GetRequiredService<IDbContextProvider<TDbContext>>()
-            .GetDbContextAsync();
+            .GetDbContextAsync()
+            .ConfigureAwait(false);
 
-        await ApplyMigrationAsync(dbContext, cancellationToken);
+        await ApplyMigrationAsync(dbContext, cancellationToken).ConfigureAwait(false);
 
-        _logger.LogInformation("Completed migrating ({Name}).", name);
+        logger.LogInformation("Completed migrating ({Name}).", name);
     }
 
-    private static async Task ApplyMigrationAsync<TDbContext>(
-        TDbContext dbContext,
-        CancellationToken cancellationToken
-    )
+    private static Task ApplyMigrationAsync<TDbContext>(TDbContext dbContext, CancellationToken cancellationToken)
         where TDbContext : DbContext, IEfCoreDbContext
     {
         var strategy = dbContext.Database.CreateExecutionStrategy();
-
-        await strategy.ExecuteAsync(async () =>
-        {
-            await dbContext.Database.MigrateAsync(cancellationToken);
-        });
+        return strategy.ExecuteAsync(() => dbContext.Database.MigrateAsync(cancellationToken));
     }
 
-    private async Task SeedDataAsync(Tenant? tenant)
+    private Task SeedDataAsync(Tenant? tenant)
     {
         if (tenant is null)
         {
-            _logger.LogInformation("Seeding host data ...");
+            logger.LogInformation("Seeding host data ...");
         }
         else
         {
-            _logger.LogInformation("Seeding tenant data: {Name} ({Id})", tenant.Name, tenant.Id);
+            logger.LogInformation("Seeding tenant data: {Name} ({Id})", tenant.Name, tenant.Id);
         }
 
-        await _dataSeeder.SeedAsync(
+        return dataSeeder.SeedAsync(
             new DataSeedContext(tenant?.Id)
                 .WithProperty(
                     IdentityDataSeedContributor.AdminEmailPropertyName,

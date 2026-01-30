@@ -25,15 +25,11 @@ public class TaskyMicroserviceModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var configuration = context.Services.GetConfiguration();
-        //var hostingEnvironment = context.Services.GetHostingEnvironment();
 
         ConfigureCors(context, configuration);
     }
 
-    private static void ConfigureCors(
-        ServiceConfigurationContext context,
-        IConfiguration configuration
-    )
+    private static void ConfigureCors(ServiceConfigurationContext context, IConfiguration configuration)
     {
         context.Services.AddCors(options =>
         {
@@ -85,29 +81,18 @@ public static class MicroserviceExtensions
             .AddAbpJwtBearer(options =>
             {
                 options.Authority = configuration["AuthServer:Authority"];
-                options.RequireHttpsMetadata = configuration.GetValue<bool>(
-                    "AuthServer:RequireHttpsMetadata"
-                );
+                options.RequireHttpsMetadata = configuration.GetValue<bool>("AuthServer:RequireHttpsMetadata");
                 options.Audience = audience;
             });
 
-        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options =>
-        {
-            options.IsDynamicClaimsEnabled = true;
-        });
+        context.Services.Configure<AbpClaimsPrincipalFactoryOptions>(options => options.IsDynamicClaimsEnabled = true);
 
         return context;
     }
 
-    public static ServiceConfigurationContext ConfigureCache(
-        this ServiceConfigurationContext context,
-        string keyPrefix
-    )
+    public static ServiceConfigurationContext ConfigureCache(this ServiceConfigurationContext context, string keyPrefix)
     {
-        context.Services.Configure<AbpDistributedCacheOptions>(options =>
-        {
-            options.KeyPrefix = $"{keyPrefix}:";
-        });
+        context.Services.Configure<AbpDistributedCacheOptions>(options => options.KeyPrefix = $"{keyPrefix}:");
 
         return context;
     }
@@ -124,10 +109,7 @@ public static class MicroserviceExtensions
             new Dictionary<string, string> { { name, $"{name} API" } },
             options =>
             {
-                options.SwaggerDoc(
-                    "v1",
-                    new OpenApiInfo { Title = $"{name} API", Version = version }
-                );
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = $"{name} API", Version = version });
                 options.DocInclusionPredicate((docName, description) => true);
                 options.CustomSchemaIds(type => type.FullName);
             }

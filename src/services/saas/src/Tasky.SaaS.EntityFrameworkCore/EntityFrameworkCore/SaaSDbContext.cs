@@ -17,11 +17,11 @@ public class SaaSDbContext(DbContextOptions<SaaSDbContext> options)
 
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
 
-        builder.ConfigureSaaS();
-        builder.ConfigureTenantManagement();
+        modelBuilder.ConfigureSaaS();
+        modelBuilder.ConfigureTenantManagement();
     }
 }

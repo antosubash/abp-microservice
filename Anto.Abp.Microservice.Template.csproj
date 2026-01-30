@@ -1,28 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <PackageType>Template</PackageType>
-        <Version>2.0.3</Version>
-        <TargetFramework>net9.0</TargetFramework>
-        <PackageId>Anto.Abp.Microservice.Template</PackageId>
-        <Title>ABP Microservice Template</Title>
-        <Authors>Anto Subash, Doug Wilson</Authors>
-        <Description>ABP Microservice Template</Description>
-        <PackageTags>abp;microservice;template;yarp;aspire</PackageTags>
-        <IncludeContentInPack>true</IncludeContentInPack>
-        <IncludeBuildOutput>false</IncludeBuildOutput>
-        <NoDefaultExcludes>true</NoDefaultExcludes>
-        <RepositoryType>git</RepositoryType>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/antosubash/AbpMicroservice</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/antosubash/AbpMicroservice</RepositoryUrl>
-        <PackageReadmeFile>readme.md</PackageReadmeFile>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Remove="**\*" />
-        <Content Include="src\**\*" Exclude="src\**\bin\**;src\**\obj\**" />
-        <Content Include="readme.md" Pack="true" PackagePath="\" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <Version>2.0.3</Version>
+    <TargetFramework>net10.0</TargetFramework>
+    <PackageId>Anto.Abp.Microservice.Template</PackageId>
+    <Title>ABP Microservice Template</Title>
+    <Authors>Anto Subash, Doug Wilson</Authors>
+    <Description>ABP Microservice Template</Description>
+    <PackageTags>abp;microservice;template;yarp;aspire</PackageTags>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/antosubash/AbpMicroservice</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/antosubash/AbpMicroservice</RepositoryUrl>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="**\*" />
+    <Content Include="src\**\*" Exclude="src\**\bin\**;src\**\obj\**" />
+    <Content Include="readme.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>

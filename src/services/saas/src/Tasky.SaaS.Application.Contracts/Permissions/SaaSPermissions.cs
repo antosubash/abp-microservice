@@ -2,7 +2,7 @@
 
 namespace Tasky.SaaS.Permissions;
 
-public class SaaSPermissions
+public static class SaaSPermissions
 {
     public const string GroupName = "SaaS";
 

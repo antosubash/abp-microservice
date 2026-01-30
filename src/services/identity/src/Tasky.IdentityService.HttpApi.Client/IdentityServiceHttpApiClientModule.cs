@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.Account;
 using Volo.Abp.Http.Client;
@@ -15,14 +16,15 @@ public class IdentityServiceHttpApiClientModule : AbpModule
 {
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        ArgumentNullException.ThrowIfNull(context);
+
         context.Services.AddHttpClientProxies(
             typeof(IdentityServiceApplicationContractsModule).Assembly,
             IdentityServiceRemoteServiceConsts.RemoteServiceName
         );
 
         Configure<AbpVirtualFileSystemOptions>(options =>
-        {
-            options.FileSets.AddEmbedded<IdentityServiceHttpApiClientModule>();
-        });
+            options.FileSets.AddEmbedded<IdentityServiceHttpApiClientModule>()
+        );
     }
 }
